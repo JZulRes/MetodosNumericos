@@ -8,16 +8,19 @@ package metodosnumericos;
 /**
  *
  * @author Juan Fernando Zuluaga <jzulua50@eafit.edu.co>
+ * @author Daniel Arango Pelaez <darang24@eafit.edu.co>
+ * 
  */
 public class VentanaMain extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaMain
      */
+    
     public VentanaMain() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+        this.setResizable(false);
     }
 
     /**

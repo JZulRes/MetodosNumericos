@@ -8,6 +8,8 @@ package metodosnumericos;
 /**
  *
  * @author Juan Fernando Zuluaga <jzulua50@eafit.edu.co>
+ * @author Daniel Arango Pelaez <darang24@eafit.edu.co>
+ * 
  */
 public class VentanaBusquedasIn extends javax.swing.JFrame {
 
@@ -17,6 +19,7 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
     public VentanaBusquedasIn() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**
