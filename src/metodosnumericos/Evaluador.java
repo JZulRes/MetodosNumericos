@@ -30,7 +30,7 @@ public class Evaluador {
         System.out.println(result);
         
         }catch(Exception e){
-            System.out.println("No Importa");
+            System.out.println("Expresion Vacia");
         }
         
         

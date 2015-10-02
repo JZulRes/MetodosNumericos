@@ -16,10 +16,12 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
     /**
      * Creates new form VentanaUnaVariable
      */
+    
     public VentanaUnaVariable() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        
     }
 
     /**
@@ -153,21 +155,15 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        //boton VentanaBusquedasIncrementales
        String f = getEvaluador();
-       Evaluador eva = new Evaluador();
-       
-       try{
-           eva.Evaluador1(f);
-       }catch(Exception e){
-           System.out.println("Error");
-       }
-       
        VentanaBusquedasIn vbi = new VentanaBusquedasIn();
+       vbi.RecibirFuncion(f);
        this.setVisible(false);
        vbi.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+  
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         VentanaMain vm = new VentanaMain();
         this.setVisible(false);
