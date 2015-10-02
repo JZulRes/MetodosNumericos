@@ -154,7 +154,15 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-       System.out.println(getEvaluador());
+       String f = getEvaluador();
+       Evaluador eva = new Evaluador();
+       
+       try{
+           eva.Evaluador1(f);
+       }catch(Exception e){
+           System.out.println("Error");
+       }
+       
        VentanaBusquedasIn vbi = new VentanaBusquedasIn();
        this.setVisible(false);
        vbi.setVisible(true);

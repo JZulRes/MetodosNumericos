@@ -5,6 +5,10 @@
  */
 package metodosnumericos;
 
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Juan Fernando Zuluaga <jzulua50@eafit.edu.co>
@@ -136,11 +140,10 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+ 
         VentanaUnaVariable vuv = new VentanaUnaVariable();
         this.setVisible(false);
         vuv.setVisible(true);
-        Evaluador eva = new Evaluador();
-        eva.Evaluador1();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -6,7 +6,6 @@
 
 package metodosnumericos;
 
-
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
@@ -19,17 +18,9 @@ import net.objecthunter.exp4j.ExpressionBuilder;
 
 public class Evaluador {
       
-    //String f;
-    public void ObtenerValores(){
-        VentanaUnaVariable ventanaunavariable = new VentanaUnaVariable();
-       // f = ventanaunavariable.getEvaluador();
-        
-    } 
-    public void Evaluador1() throws Exception{
-        try{
-            
-        VentanaUnaVariable ventanaunavariable = new VentanaUnaVariable();
-        String f = ventanaunavariable.getEvaluador();
+   
+    public void Evaluador1(String f) throws Exception{
+         try{
         Expression e = new ExpressionBuilder(f)
         .variables("x")
         .build()
@@ -41,6 +32,11 @@ public class Evaluador {
         }catch(Exception e){
             System.out.println("No Importa");
         }
+        
+        
     }
     
 }
+
+
+

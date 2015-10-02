@@ -29,8 +29,8 @@ public class MetodosNumericos  {
         
         VentanaMain ventanaMain = new VentanaMain();
         ventanaMain.setVisible(true);
-       // Evaluador evaluador = new Evaluador();
-        //evaluador.Evaluador1();
+       //Evaluador evaluador = new Evaluador();
+       //evaluador.Evaluador1();
         
     }
     
