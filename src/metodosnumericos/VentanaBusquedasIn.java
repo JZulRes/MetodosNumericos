@@ -139,6 +139,8 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
         VentanaUnaVariable vuv = new VentanaUnaVariable();
         this.setVisible(false);
         vuv.setVisible(true);
+        Evaluador eva = new Evaluador();
+        eva.Evaluador1();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

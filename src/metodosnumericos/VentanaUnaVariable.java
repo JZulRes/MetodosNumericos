@@ -153,6 +153,8 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+       System.out.println(getEvaluador());
        VentanaBusquedasIn vbi = new VentanaBusquedasIn();
        this.setVisible(false);
        vbi.setVisible(true);
@@ -167,7 +169,12 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
+     
+public String getEvaluador(){
+        return this.jTextField1.getText();
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
