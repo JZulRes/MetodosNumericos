@@ -11,17 +11,10 @@ import java.util.ArrayList;
  */
 public class Metodos {
 
-    //Arraylist de todos los metodos con sus respectivos get
+    //Arraylist de todos los metodos:
     //ArrayList resultados busquedas incrementales
     private ArrayList<Double> busquedaFx = new ArrayList<Double>();  
     private ArrayList<Double> busquedax = new ArrayList<Double>();  
-    
-    public ArrayList<Double> getBusquedaFx(){
-        return busquedaFx;
-    }
-    public ArrayList<Double> getBusquedax(){
-        return busquedax;
-    }
     
     //ArrayList resultados biseccion
     private ArrayList<Double> biseccionXi = new ArrayList<Double>();
@@ -45,6 +38,18 @@ public class Metodos {
     private ArrayList<Double> puntoFijoEa = new ArrayList<Double>();
     private ArrayList<Double> puntoFijoEr = new ArrayList<Double>();
     
+    //ArrayList resultados Newton
+    private ArrayList<Double> newtonXn = new ArrayList<Double>();
+    private ArrayList<Double> newtonFx = new ArrayList<Double>();
+    private ArrayList<Double> newtonFdx = new ArrayList<Double>();
+    private ArrayList<Double> newtonEa = new ArrayList<Double>();
+    private ArrayList<Double> newtonEr = new ArrayList<Double>();
+    
+    //ArrayList resultados secante
+    private ArrayList<Double> secanteXn = new ArrayList<Double>();
+    private ArrayList<Double> secanteFxn = new ArrayList<Double>();
+    private ArrayList<Double> secanteEa = new ArrayList<Double>();
+    private ArrayList<Double> secanteEr = new ArrayList<Double>();
     
     private double funcion(String s, double x){
         Evaluador funcion = new Evaluador();
@@ -217,6 +222,10 @@ public class Metodos {
 	double fx = funcion(f,xa);
 	int contador = 0;
 	double error = tolerancia + 1;
+        puntoFijoXn.add(xa);
+        puntoFijoFxn.add(fx);
+        puntoFijoEa.add(0.0);
+        puntoFijoEr.add(0.0);
 	while ((fx != 0) && (error > tolerancia) && contador < iter) {
 		double xn = funcion(g,xa);
 		fx = funcion(f,xn);
@@ -242,5 +251,214 @@ public class Metodos {
 		return "El metodo fracaso en "+iter+"iteraciones";
 	}
 }
+    
+    public String Newton(double tolerancia, double x0, int iter, String f,
+                        String df, boolean errorAbs){
+        double x1 = 0;
+        double fx = funcion(f,x0);//F(x1)
+	double dfx = funcion(df,x0);//F'(x1)
+	int contador = 0;
+	double error = tolerancia + 1;
+        newtonXn.add(x0);
+        newtonFx.add(fx);
+        newtonFdx.add(dfx);
+        newtonEa.add(0.0);
+        newtonEr.add(0.0);
+	while ((error > tolerancia) && (fx != 0) && (dfx != 0) && (contador < iter)) {
+		x1 = x0 - (fx / dfx);
+		fx = funcion(f,x1);//F(x1)
+		dfx = funcion(df,x1);//F'(x1)
+                if(errorAbs){
+                    error = Math.abs(x1 - x0);
+                }else{
+                    error = Math.abs((x1 - x0)/x1);
+                }
+		x0 = x1;
+		contador++;
+                newtonXn.add(x0);
+                newtonFx.add(fx);
+                newtonFdx.add(dfx);
+                newtonEa.add(Math.abs(x1 - x0));
+                newtonEr.add(Math.abs((x1 - x0)/x1));
+        }
+	if (fx == 0) {
+		return x0+" es raiz";
+	}
+	else if (error < tolerancia) {
+		return x1+" es una aproximacion a una raiz con una tolerancia = "+tolerancia;
+	}
+	else if (dfx == 0) {
+		return x1+" es una posible raiz multiple";
+	}
+	else {
+		return "Fracaso en "+iter+" iteraciones";
+	}
+
+    }
+
+
+    public String MetodoDeLaSecante(double tolerancia, double x0, double x1,
+                                    int iter, String f, boolean errorAbs) {
+	double fx0 = funcion(f,x0);
+        secanteXn.add(x0);
+        secanteFxn.add(fx0);
+        if (fx0 == 0) {
+		return x0+" es raiz";
+	}
+	else {
+		double fx1 = funcion(f,x1);
+		int contador = 0;
+		double error = tolerancia + 1;
+		double den = fx1 - fx0;
+		secanteXn.add(x1);
+                secanteFxn.add(fx1);
+                secanteEa.add(0.0);
+                secanteEr.add(0.0);
+		while ((error < tolerancia) && (fx1 != 0) && (den != 0) && (contador < iter)) {
+			double x2 = x1 - (fx1 * (x1 - x0) / den);
+			if(errorAbs){
+                            error = Math.abs(x2 - x1);   
+                        }else{
+                            error = Math.abs((x2 - x1)/x2);
+                        }
+			x0 = x1;
+			fx0 = fx1;
+			x1 = x2;
+			fx1 = funcion(f,x1);
+			den = fx1 - fx0;
+			contador++;
+                        secanteXn.add(x1);
+                        secanteFxn.add(fx1);
+                        secanteEa.add(Math.abs(x2 - x1));
+                        secanteEr.add(Math.abs((x2 - x1)/x2));
+                        
+		}
+		if (fx1 == 0) {
+			return x1+" es raiz";
+		}
+		else if (error < tolerancia) {
+			return x1+" es aproximacion a una raiz con una tolerancia = "+tolerancia;
+		}
+		else if (den == 0) {
+			return "Hay una posible raiz multiple";
+		}
+		else {
+                        return "Fracaso en "+iter+" iteraciones";
+		}
+	}
+}
+
+    
+    
+    
+    public ArrayList<Double> getBusquedaFx() {
+        return busquedaFx;
+    }
+
+    public ArrayList<Double> getBusquedax() {
+        return busquedax;
+    }
+
+    public ArrayList<Double> getBiseccionXi() {
+        return biseccionXi;
+    }
+
+    public ArrayList<Double> getBiseccionXs() {
+        return biseccionXs;
+    }
+
+    public ArrayList<Double> getBiseccionXm() {
+        return biseccionXm;
+    }
+
+    public ArrayList<Double> getBiseccionFxm() {
+        return biseccionFxm;
+    }
+
+    public ArrayList<Double> getBiseccionEr() {
+        return biseccionEr;
+    }
+
+    public ArrayList<Double> getBiseccionEa() {
+        return biseccionEa;
+    }
+
+    public ArrayList<Double> getReglaFalsaXi() {
+        return reglaFalsaXi;
+    }
+
+    public ArrayList<Double> getReglaFalsaXs() {
+        return reglaFalsaXs;
+    }
+
+    public ArrayList<Double> getReglaFalsaXm() {
+        return reglaFalsaXm;
+    }
+
+    public ArrayList<Double> getReglaFalsaFxm() {
+        return reglaFalsaFxm;
+    }
+
+    public ArrayList<Double> getReglaFalsaEr() {
+        return reglaFalsaEr;
+    }
+
+    public ArrayList<Double> getReglaFalsaEa() {
+        return reglaFalsaEa;
+    }
+
+    public ArrayList<Double> getPuntoFijoXn() {
+        return puntoFijoXn;
+    }
+
+    public ArrayList<Double> getPuntoFijoFxn() {
+        return puntoFijoFxn;
+    }
+
+    public ArrayList<Double> getPuntoFijoEa() {
+        return puntoFijoEa;
+    }
+
+    public ArrayList<Double> getPuntoFijoEr() {
+        return puntoFijoEr;
+    }
+
+    public ArrayList<Double> getNewtonXn() {
+        return newtonXn;
+    }
+
+    public ArrayList<Double> getNewtonFx() {
+        return newtonFx;
+    }
+
+    public ArrayList<Double> getNewtonFdx() {
+        return newtonFdx;
+    }
+
+    public ArrayList<Double> getNewtonEa() {
+        return newtonEa;
+    }
+
+    public ArrayList<Double> getNewtonEr() {
+        return newtonEr;
+    }
+
+    public ArrayList<Double> getSecanteXn() {
+        return secanteXn;
+    }
+
+    public ArrayList<Double> getSecanteFxn() {
+        return secanteFxn;
+    }
+
+    public ArrayList<Double> getSecanteEa() {
+        return secanteEa;
+    }
+
+    public ArrayList<Double> getSecanteEr() {
+        return secanteEr;
+    }
+
+
     
 }
