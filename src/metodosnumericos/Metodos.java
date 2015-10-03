@@ -51,6 +51,15 @@ public class Metodos {
     private ArrayList<Double> secanteEa = new ArrayList<Double>();
     private ArrayList<Double> secanteEr = new ArrayList<Double>();
     
+    //ArrayList resultados Raices Multiples
+    private ArrayList<Double> raicesXn = new ArrayList<Double>();
+    private ArrayList<Double> raicesFx = new ArrayList<Double>();
+    private ArrayList<Double> raicesFdx = new ArrayList<Double>();
+    private ArrayList<Double> raicesFddx = new ArrayList<Double>();
+    private ArrayList<Double> raicesEa = new ArrayList<Double>();
+    private ArrayList<Double> raicesEr = new ArrayList<Double>();
+    
+    
     private double funcion(String s, double x){
         Evaluador funcion = new Evaluador();
         return funcion.Evaluador1(s, x);
@@ -348,9 +357,57 @@ public class Metodos {
 	}
 }
 
-    
-    
-    
+
+    public String RaicesMultiples(double tolerancia, double x0, int iter, String f,
+                        String df, String ddf, boolean errorAbs){
+        double x1 = 0;
+        double fx = funcion(f,x0);//F(x1)
+	double dfx = funcion(df,x0);//F'(x1)
+        double ddfx = funcion(ddf,x0);
+	int contador = 0;
+	double error = tolerancia + 1;
+        raicesXn.add(x0);
+        raicesFx.add(fx);
+        raicesFdx.add(dfx);
+        raicesFddx.add(ddfx);
+        raicesEa.add(0.0);
+        raicesEr.add(0.0);
+        double den = Math.pow(dfx, 2)-(fx*ddfx);
+	while ((error > tolerancia) && (fx != 0) && (den != 0) && (contador < iter)) {
+		x1 = x0 - ((fx*dfx)/den);
+		fx = funcion(f,x1);
+		dfx = funcion(df,x1);
+                ddfx = funcion(ddf,x1);
+                if(errorAbs){
+                    error = Math.abs(x1 - x0);
+                }else{
+                    error = Math.abs((x1 - x0)/x1);
+                }
+		x0 = x1;
+		contador++;
+                den = Math.pow(dfx, 2)-(fx*ddfx);
+                raicesXn.add(x0);
+                raicesFx.add(fx);
+                raicesFdx.add(dfx);
+                raicesFddx.add(ddfx);
+                raicesEa.add(Math.abs(x1 - x0));
+                raicesEr.add(Math.abs((x1 - x0)/x1));
+        }
+	if (fx == 0) {
+		return x0+" es raiz";
+	}
+	else if (error < tolerancia) {
+		return x1+" es una aproximacion a una raiz con una tolerancia = "+tolerancia;
+	}
+	else if (den == 0) {
+		return "Posible raiz multiple";
+	}
+	else {
+		return "Fracaso en "+iter+" iteraciones";
+	}
+
+    }
+
     public ArrayList<Double> getBusquedaFx() {
         return busquedaFx;
     }
@@ -459,6 +516,27 @@ public class Metodos {
         return secanteEr;
     }
 
+    public ArrayList<Double> getRaicesXn() {
+        return raicesXn;
+    }
 
-    
+    public ArrayList<Double> getRaicesFx() {
+        return raicesFx;
+    }
+
+    public ArrayList<Double> getRaicesFdx() {
+        return raicesFdx;
+    }
+
+    public ArrayList<Double> getRaicesFddx() {
+        return raicesFddx;
+    }
+
+    public ArrayList<Double> getRaicesEa() {
+        return raicesEa;
+    }
+
+    public ArrayList<Double> getRaicesEr() {
+        return raicesEr;
+    }
 }
