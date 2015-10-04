@@ -107,9 +107,21 @@ public class Metodos {
 	double fxs = funcion(f,xs);
 	
         if (fxi == 0) {
+                biseccionXi.add(xi);
+                biseccionXs.add(xs);
+                biseccionXm.add(0.0);
+                biseccionFxm.add(0.0);
+                biseccionEa.add(0.0);
+                biseccionEr.add(0.0);
 		return xi+" es raiz";
 	}
 	else if (fxs == 0) {
+                biseccionXi.add(xi);
+                biseccionXs.add(xs);
+                biseccionXm.add(0.0);
+                biseccionFxm.add(0.0);
+                biseccionEa.add(0.0);
+                biseccionEr.add(0.0);
 		return xs+" es raiz";
 	}
 	else if (fxi * fxs < 0) {
@@ -170,9 +182,21 @@ public class Metodos {
 	double fxi = funcion(f,xi);
 	double fxs = funcion(f,xs);
 	if (fxi == 0) {
-		return xi+" es raiz";
+		reglaFalsaXi.add(xi);
+                reglaFalsaXs.add(xs);
+                reglaFalsaXm.add(0.0);
+                reglaFalsaFxm.add(0.0);
+                reglaFalsaEa.add(0.0);
+                reglaFalsaEr.add(0.0);
+                return xi+" es raiz";
 	}
 	else if (fxs == 0) {
+                reglaFalsaXi.add(xi);
+                reglaFalsaXs.add(xs);
+                reglaFalsaXm.add(0.0);
+                reglaFalsaFxm.add(0.0);
+                reglaFalsaEa.add(0.0);
+                reglaFalsaEr.add(0.0);
 		return xs+" es raiz";
 	}
 	else if (fxi * fxs < 0) {
