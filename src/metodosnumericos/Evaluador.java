@@ -36,6 +36,15 @@ public class Evaluador {
         
     }
     
+    public double Evaluador2(String f, double x){
+        Expression e = new ExpressionBuilder(f)
+        .variables("x")
+        .build()
+        .setVariable("x", x);
+        double result = e.evaluate();
+        return result;
+    }
+    
 }
 
 
