@@ -62,7 +62,7 @@ public class Metodos {
     
     private double funcion(String s, double x){
         Evaluador funcion = new Evaluador();
-        return funcion.Evaluador1(s, x);
+        return funcion.Evaluador2(s, x);
     }
     
     
