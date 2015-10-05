@@ -208,6 +208,7 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
         //boton VentanaBiseccion
         String f = getEvaluador();
         VentanaBiseccion vb = new VentanaBiseccion();
+        vb.RecibirFuncion(f);
         this.setVisible(false);
         vb.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed

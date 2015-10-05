@@ -5,6 +5,7 @@
  */
 package metodosnumericos;
 import java.util.ArrayList;
+import java.math.BigDecimal;
 /**
  * @author Juan Fernando Zuluaga <jzulua50@eafit.edu.co>
  * @author Daniel Arango Pelaez <darang24@eafit.edu.co>
@@ -13,16 +14,16 @@ public class Metodos {
 
     //Arraylist de todos los metodos:
     //ArrayList resultados busquedas incrementales
-    private ArrayList<Double> busquedaFx = new ArrayList<Double>();  
-    private ArrayList<Double> busquedax = new ArrayList<Double>();  
+    private ArrayList<BigDecimal> busquedaFx = new ArrayList<BigDecimal>();  
+    private ArrayList<BigDecimal> busquedax = new ArrayList<BigDecimal>();  
     
     //ArrayList resultados biseccion
-    private ArrayList<Double> biseccionXi = new ArrayList<Double>();
-    private ArrayList<Double> biseccionXs = new ArrayList<Double>();
-    private ArrayList<Double> biseccionXm = new ArrayList<Double>();
-    private ArrayList<Double> biseccionFxm = new ArrayList<Double>();
-    private ArrayList<Double> biseccionEr = new ArrayList<Double>();
-    private ArrayList<Double> biseccionEa = new ArrayList<Double>();
+    private ArrayList<BigDecimal> biseccionXi = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> biseccionXs = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> biseccionXm = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> biseccionFxm = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> biseccionEr = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> biseccionEa = new ArrayList<BigDecimal>();
 
     //ArrayList resultados regla falsa
     private ArrayList<Double> reglaFalsaXi = new ArrayList<Double>();
@@ -67,32 +68,37 @@ public class Metodos {
     
     
     public String Busqueda(double x0, double delta, int iter, String f) {
-	double fxo = funcion(f,x0);
-	busquedax.add(x0);
+	
+        BigDecimal fxo = new BigDecimal(funcion(f,x0));
+        BigDecimal x0b = new BigDecimal(x0);
+        BigDecimal deltab = new BigDecimal(delta);
+	busquedax.add(x0b);
         busquedaFx.add(fxo);
 	if (x0 == 0) {
 		return x0+" es raiz";
 	}
 	else {
-		double x1 = x0 + delta;
+                BigDecimal x1 = x0b.add(deltab);
+		//double x1 = x0 + delta;
 		int contador = 1;
-		double fx1 = funcion(f,x1);
-                while ((fxo*fx1 > 0) && (contador < iter)) {
+		BigDecimal fx1 = new BigDecimal(funcion(f,x1.doubleValue()));
+                //while ((fxo*fx1 > 0) && (contador < iter)) {
+                while ((fxo.multiply(fx1).compareTo(BigDecimal.ZERO)>0) && (contador < iter)) {
                         busquedax.add(x1);
                         busquedaFx.add(fx1);
-			x0 = x1;
+			x0b = x1;
 			fxo = fx1;
-			x1 = x0 + delta;
-			fx1 = funcion(f,x1);
+			x1 = x0b.add(deltab);
+			fx1 = new BigDecimal(funcion(f,x1.doubleValue()));
 			contador++;
                 }
                 busquedax.add(x1);
                 busquedaFx.add(fx1);
-		if (fx1 == 0) {
+		if (fx1.equals(BigDecimal.ZERO)) {
 			return x1+" es raiz";
 		}
-		else if((fxo * fx1) < 0){
-			return "Hay una raiz entre "+x0+" y "+x1;
+		else if(fxo.multiply(fx1).compareTo(BigDecimal.ZERO)<0){
+			return "Hay una raiz entre "+x0b+" y "+x1;
 		}
 		else {
 			return "Fracaso en "+iter+" iteraciones";
@@ -100,44 +106,49 @@ public class Metodos {
 	}
     }
             
-    public String Biseccion(double xs, double xi, double tolerancia, int iter,
+    public String Biseccion(double xs1, double xi1, double tolerancia1, int iter,
                             String f, boolean errorAbs) {
         
-	double fxi = funcion(f,xi);
-	double fxs = funcion(f,xs);
-	
-        if (fxi == 0) {
+	BigDecimal fxi = new BigDecimal(funcion(f,xi1));
+	BigDecimal fxs = new BigDecimal(funcion(f,xs1));
+	BigDecimal xs = new BigDecimal(xs1);
+        BigDecimal xi = new BigDecimal(xi1);
+        BigDecimal tolerancia = new BigDecimal(tolerancia1);
+        
+        if (fxi.equals(BigDecimal.ZERO)) {
                 biseccionXi.add(xi);
                 biseccionXs.add(xs);
-                biseccionXm.add(0.0);
-                biseccionFxm.add(0.0);
-                biseccionEa.add(0.0);
-                biseccionEr.add(0.0);
+                biseccionXm.add(BigDecimal.ZERO);
+                biseccionFxm.add(BigDecimal.ZERO);
+                biseccionEa.add(BigDecimal.ZERO);
+                biseccionEr.add(BigDecimal.ZERO);
 		return xi+" es raiz";
 	}
-	else if (fxs == 0) {
+	else if (fxs.equals(BigDecimal.ZERO)) {
                 biseccionXi.add(xi);
                 biseccionXs.add(xs);
-                biseccionXm.add(0.0);
-                biseccionFxm.add(0.0);
-                biseccionEa.add(0.0);
-                biseccionEr.add(0.0);
+                biseccionXm.add(BigDecimal.ZERO);
+                biseccionFxm.add(BigDecimal.ZERO);
+                biseccionEa.add(BigDecimal.ZERO);
+                biseccionEr.add(BigDecimal.ZERO);
 		return xs+" es raiz";
 	}
-	else if (fxi * fxs < 0) {
-		double xm = (xi + xs) / 2;
-		double fxm = funcion(f,xm);
+	else if (fxi.multiply(fxs).compareTo(BigDecimal.ZERO) < 0) {
+                BigDecimal xm = xi.add(xs);
+                xm = xm.divide(new BigDecimal(2));   //xi + xs/2
+                BigDecimal fxm = new BigDecimal(funcion(f,xm.floatValue()));
 		int contador = 1;
-		double error = tolerancia + 1;
+		BigDecimal error = tolerancia.add(BigDecimal.ONE);
                 biseccionXi.add(xi);
                 biseccionXs.add(xs);
                 biseccionXm.add(xm);
                 biseccionFxm.add(fxm);
-                biseccionEa.add(0.0);
-                biseccionEr.add(0.0);
+                biseccionEa.add(BigDecimal.ZERO);
+                biseccionEr.add(BigDecimal.ZERO);
                 
-		while ((error > tolerancia) && (fxm != 0) && contador < iter) {
-			if (fxi*fxm < 0) {
+                while ((error.compareTo(tolerancia)>0) && (!fxm.equals(BigDecimal.ZERO)) && contador < iter) {
+		    
+                    if ((fxi.multiply(fxm)).compareTo(BigDecimal.ZERO) < 0) {
 				xs = xm;
 				fxs = fxm;
 			}
@@ -145,27 +156,27 @@ public class Metodos {
 				xi = xm;
 				fxi = fxm;
 			}
-			double xaux = xm;
-			xm = (xi + xs) / 2;
-			fxm = funcion(f,xm);
+			BigDecimal xaux = xm;
+			xm = (xi.add(xs)).divide(new BigDecimal(2));
+			fxm = new BigDecimal(funcion(f,xm.doubleValue()));
 			if(errorAbs){
-                            error = Math.abs(xm - xaux);
+                            error = xm.subtract(xaux).abs();
                         }else{
-                            error = Math.abs((xm-xaux)/xm);
+                            error = ((xm.subtract(xaux)).divide(xm)).abs();
                         }
 			contador++;
                         biseccionXi.add(xi);
                         biseccionXs.add(xs);
                         biseccionXm.add(xm);
                         biseccionFxm.add(fxm);
-                        biseccionEa.add(Math.abs(xm - xaux));
-                        biseccionEr.add(Math.abs((xm-xaux)/xm));
-
+                        biseccionEa.add(xm.subtract(xaux).abs());
+                      //  biseccionEr.add(((xm.subtract(xaux)).divide(xm)).abs());
+                        biseccionEr.add(BigDecimal.ZERO);
                 }
-		if (fxm == 0) {
+		if (fxm.equals(BigDecimal.ZERO)) {
 			return xm+" es raiz";
 		}
-		else if (error < tolerancia) {
+		else if ( error.compareTo(tolerancia) < 0) {
 			return xm+" es una aproximacion a una raiz con una tolerancia = "+tolerancia;
 		}
 		else {
@@ -432,35 +443,35 @@ public class Metodos {
 
     }
 
-    public ArrayList<Double> getBusquedaFx() {
+    public ArrayList<BigDecimal> getBusquedaFx() {
         return busquedaFx;
     }
 
-    public ArrayList<Double> getBusquedax() {
+    public ArrayList<BigDecimal> getBusquedax() {
         return busquedax;
     }
 
-    public ArrayList<Double> getBiseccionXi() {
+    public ArrayList<BigDecimal> getBiseccionXi() {
         return biseccionXi;
     }
 
-    public ArrayList<Double> getBiseccionXs() {
+    public ArrayList<BigDecimal> getBiseccionXs() {
         return biseccionXs;
     }
 
-    public ArrayList<Double> getBiseccionXm() {
+    public ArrayList<BigDecimal> getBiseccionXm() {
         return biseccionXm;
     }
 
-    public ArrayList<Double> getBiseccionFxm() {
+    public ArrayList<BigDecimal> getBiseccionFxm() {
         return biseccionFxm;
     }
 
-    public ArrayList<Double> getBiseccionEr() {
+    public ArrayList<BigDecimal> getBiseccionEr() {
         return biseccionEr;
     }
 
-    public ArrayList<Double> getBiseccionEa() {
+    public ArrayList<BigDecimal> getBiseccionEa() {
         return biseccionEa;
     }
 

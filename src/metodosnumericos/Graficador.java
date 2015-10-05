@@ -31,6 +31,7 @@ public class Graficador {
         }
         XYSeriesCollection collection = new XYSeriesCollection(series);
         JFreeChart chart = ChartFactory.createXYLineChart("Grafica", "X", "Y", collection);
+        
         ChartPanel panel = new ChartPanel(chart);
         panel.setPreferredSize(new java.awt.Dimension(400,300));
         return panel;
