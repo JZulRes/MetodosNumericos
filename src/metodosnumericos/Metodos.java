@@ -6,6 +6,7 @@
 package metodosnumericos;
 import java.util.ArrayList;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 /**
  * @author Juan Fernando Zuluaga <jzulua50@eafit.edu.co>
  * @author Daniel Arango Pelaez <darang24@eafit.edu.co>
@@ -26,39 +27,39 @@ public class Metodos {
     private ArrayList<BigDecimal> biseccionEa = new ArrayList<BigDecimal>();
 
     //ArrayList resultados regla falsa
-    private ArrayList<Double> reglaFalsaXi = new ArrayList<Double>();
-    private ArrayList<Double> reglaFalsaXs = new ArrayList<Double>();
-    private ArrayList<Double> reglaFalsaXm = new ArrayList<Double>();
-    private ArrayList<Double> reglaFalsaFxm = new ArrayList<Double>();
-    private ArrayList<Double> reglaFalsaEr = new ArrayList<Double>();
-    private ArrayList<Double> reglaFalsaEa = new ArrayList<Double>();
+    private ArrayList<BigDecimal> reglaFalsaXi = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> reglaFalsaXs = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> reglaFalsaXm = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> reglaFalsaFxm = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> reglaFalsaEr = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> reglaFalsaEa = new ArrayList<BigDecimal>();
 
     //ArrayList resultados Punto Fijo
-    private ArrayList<Double> puntoFijoXn = new ArrayList<Double>();
-    private ArrayList<Double> puntoFijoFxn = new ArrayList<Double>();
-    private ArrayList<Double> puntoFijoEa = new ArrayList<Double>();
-    private ArrayList<Double> puntoFijoEr = new ArrayList<Double>();
+    private ArrayList<BigDecimal> puntoFijoXn = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> puntoFijoFxn = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> puntoFijoEa = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> puntoFijoEr = new ArrayList<BigDecimal>();
     
     //ArrayList resultados Newton
-    private ArrayList<Double> newtonXn = new ArrayList<Double>();
-    private ArrayList<Double> newtonFx = new ArrayList<Double>();
-    private ArrayList<Double> newtonFdx = new ArrayList<Double>();
-    private ArrayList<Double> newtonEa = new ArrayList<Double>();
-    private ArrayList<Double> newtonEr = new ArrayList<Double>();
+    private ArrayList<BigDecimal> newtonXn = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> newtonFx = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> newtonFdx = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> newtonEa = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> newtonEr = new ArrayList<BigDecimal>();
     
     //ArrayList resultados secante
-    private ArrayList<Double> secanteXn = new ArrayList<Double>();
-    private ArrayList<Double> secanteFxn = new ArrayList<Double>();
-    private ArrayList<Double> secanteEa = new ArrayList<Double>();
-    private ArrayList<Double> secanteEr = new ArrayList<Double>();
+    private ArrayList<BigDecimal> secanteXn = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> secanteFxn = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> secanteEa = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> secanteEr = new ArrayList<BigDecimal>();
     
     //ArrayList resultados Raices Multiples
-    private ArrayList<Double> raicesXn = new ArrayList<Double>();
-    private ArrayList<Double> raicesFx = new ArrayList<Double>();
-    private ArrayList<Double> raicesFdx = new ArrayList<Double>();
-    private ArrayList<Double> raicesFddx = new ArrayList<Double>();
-    private ArrayList<Double> raicesEa = new ArrayList<Double>();
-    private ArrayList<Double> raicesEr = new ArrayList<Double>();
+    private ArrayList<BigDecimal> raicesXn = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> raicesFx = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> raicesFdx = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> raicesFddx = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> raicesEa = new ArrayList<BigDecimal>();
+    private ArrayList<BigDecimal> raicesEr = new ArrayList<BigDecimal>();
     
     
     private double funcion(String s, double x){
@@ -162,7 +163,7 @@ public class Metodos {
 			if(errorAbs){
                             error = xm.subtract(xaux).abs();
                         }else{
-                            error = ((xm.subtract(xaux)).divide(xm)).abs();
+                            error = ((xm.subtract(xaux)).divide(xm, RoundingMode.UP).abs());
                         }
 			contador++;
                         biseccionXi.add(xi);
@@ -170,8 +171,8 @@ public class Metodos {
                         biseccionXm.add(xm);
                         biseccionFxm.add(fxm);
                         biseccionEa.add(xm.subtract(xaux).abs());
-                      //  biseccionEr.add(((xm.subtract(xaux)).divide(xm)).abs());
-                        biseccionEr.add(BigDecimal.ZERO);
+                        biseccionEr.add(((xm.subtract(xaux)).divide(xm, RoundingMode.UP)).abs());
+                      //  biseccionEr.add(BigDecimal.ZERO);
                 }
 		if (fxm.equals(BigDecimal.ZERO)) {
 			return xm+" es raiz";
@@ -188,41 +189,48 @@ public class Metodos {
 	}
 }
     
-    public String ReglaFalsa(double xs, double xi, double tolerancia, int iter,
+    public String ReglaFalsa(double xs1, double xi1, double tolerancia1, int iter,
                             String f, boolean errorAbs) {
-	double fxi = funcion(f,xi);
-	double fxs = funcion(f,xs);
-	if (fxi == 0) {
+	BigDecimal xs = new BigDecimal(xs1);
+        BigDecimal xi = new BigDecimal(xi1);
+        BigDecimal tolerancia = new BigDecimal(tolerancia1);       
+        BigDecimal fxi = new BigDecimal(funcion(f,xi.doubleValue()));
+	BigDecimal fxs = new BigDecimal(funcion(f,xs.doubleValue()));
+	if (fxi.equals(BigDecimal.ZERO)) {
 		reglaFalsaXi.add(xi);
                 reglaFalsaXs.add(xs);
-                reglaFalsaXm.add(0.0);
-                reglaFalsaFxm.add(0.0);
-                reglaFalsaEa.add(0.0);
-                reglaFalsaEr.add(0.0);
+                reglaFalsaXm.add(BigDecimal.ZERO);
+                reglaFalsaFxm.add(BigDecimal.ZERO);
+                reglaFalsaEa.add(BigDecimal.ZERO);
+                reglaFalsaEr.add(BigDecimal.ZERO);
                 return xi+" es raiz";
 	}
-	else if (fxs == 0) {
+	else if (fxs.equals(BigDecimal.ZERO)) {
                 reglaFalsaXi.add(xi);
                 reglaFalsaXs.add(xs);
-                reglaFalsaXm.add(0.0);
-                reglaFalsaFxm.add(0.0);
-                reglaFalsaEa.add(0.0);
-                reglaFalsaEr.add(0.0);
+                reglaFalsaXm.add(BigDecimal.ZERO);
+                reglaFalsaFxm.add(BigDecimal.ZERO);
+                reglaFalsaEa.add(BigDecimal.ZERO);
+                reglaFalsaEr.add(BigDecimal.ZERO);
 		return xs+" es raiz";
 	}
-	else if (fxi * fxs < 0) {
-		double xm = xi - ((fxi*(xs-xi))/(fxs-fxi));
-		double fxm = funcion(f,xm);
+        else if ((fxi.multiply(fxs)).compareTo(BigDecimal.ZERO) < 0) {
+                
+		BigDecimal xm = xi.subtract((fxi.multiply(xs.subtract(xi))).divide((fxs.subtract(fxi)), RoundingMode.UP));
+		
+                BigDecimal fxm = new BigDecimal(funcion(f,xm.doubleValue()));
 		int contador = 1;
-		double error = tolerancia + 1;
+		BigDecimal error = tolerancia.add(BigDecimal.ONE);
                 reglaFalsaXi.add(xi);
                 reglaFalsaXs.add(xs);
                 reglaFalsaXm.add(xm);
                 reglaFalsaFxm.add(fxm);
-                reglaFalsaEa.add(0.0);
-                reglaFalsaEr.add(0.0);
-		while ((error > tolerancia) && (fxm != 0) && contador < iter) {
-			if (fxi*fxm < 0) {
+                reglaFalsaEa.add(BigDecimal.ZERO);
+                reglaFalsaEr.add(BigDecimal.ZERO);
+		while ((error.compareTo(tolerancia) > 0) && (!fxm.equals(0)) 
+                        && contador < iter) {
+			
+                        if ((fxi.multiply(fxm)).compareTo(BigDecimal.ZERO) < 0) {
 				xs = xm;
 				fxs = fxm;
 			}
@@ -230,26 +238,28 @@ public class Metodos {
 				xi = xm;
 				fxi = fxm;
 			}
-			double xaux = xm;
-			xm = xi - ((fxi*(xs - xi)) / (fxs - fxi));
-			fxm = funcion(f,xm);
+			BigDecimal xaux = xm;
+			//xm = xi - ((fxi*(xs - xi)) / (fxs - fxi));
+			xm = xi.subtract((fxi.multiply(xs.subtract(xi))).divide((fxs.subtract(fxi)), RoundingMode.UP));
+                        
+                        fxm = new BigDecimal(funcion(f,xm.doubleValue()));
 			if(errorAbs){
-                            error = Math.abs(xm - xaux);
+                            error = xm.subtract(xaux).abs();
                         }else{
-                            error = Math.abs((xm - xaux)/xm);
+                            error = ((xm.subtract(xaux)).divide(xm, RoundingMode.UP).abs());
                         }
                         reglaFalsaXi.add(xi);
                         reglaFalsaXs.add(xs);
                         reglaFalsaXm.add(xm);
                         reglaFalsaFxm.add(fxm);
-                        reglaFalsaEa.add(Math.abs(xm - xaux));
-                        reglaFalsaEr.add(Math.abs((xm - xaux)/xm));
+                        reglaFalsaEa.add(xm.subtract(xaux).abs());
+                        reglaFalsaEr.add((xm.subtract(xaux)).divide(xm, RoundingMode.UP).abs());
                         contador++;
 		}
-		if (fxm == 0) {
+		if (fxm.equals(BigDecimal.ZERO)) {
 			return xm+" es raiz";
 		}
-		else if (error < tolerancia) {
+		else if (error.compareTo(tolerancia) < 0) {
 			return xm+" es una aproximacion a una raiz con una tolerancia = "+tolerancia;
 		}
 		else {
@@ -261,34 +271,40 @@ public class Metodos {
 	}
 }
     
-    public String PuntoFijo(double tolerancia, double xa, int iter, String f,
+    public String PuntoFijo(double tolerancia1, double xa1, int iter, String f,
                             String g, boolean errorAbs) {
-	double fx = funcion(f,xa);
+	
+        BigDecimal tolerancia = new BigDecimal(tolerancia1);
+        BigDecimal xa = new BigDecimal(xa1);
+        BigDecimal fx = new BigDecimal(funcion(f,xa.longValue()));
 	int contador = 0;
-	double error = tolerancia + 1;
+	BigDecimal error = tolerancia.add(BigDecimal.ONE);
         puntoFijoXn.add(xa);
         puntoFijoFxn.add(fx);
-        puntoFijoEa.add(0.0);
-        puntoFijoEr.add(0.0);
-	while ((fx != 0) && (error > tolerancia) && contador < iter) {
-		double xn = funcion(g,xa);
-		fx = funcion(f,xn);
+        puntoFijoEa.add(BigDecimal.ZERO);
+        puntoFijoEr.add(BigDecimal.ZERO);
+        
+	while ((!fx.equals(BigDecimal.ZERO)) && (error.compareTo(tolerancia) > 0)
+                && contador < iter) {
+		
+                BigDecimal xn = new BigDecimal(funcion(g,xa.doubleValue()));
+		fx = new BigDecimal(funcion(f,xn.doubleValue()));
 		if(errorAbs){
-                    error = Math.abs(xn - xa); 
+                    error = (xn.subtract(xa)).abs();
                 }else{
-                    error = Math.abs((xn - xa)/xn);
+                    error = ((xn.subtract(xa)).divide(xn)).abs();
                 }
 		xa = xn;
 		contador++;
                 puntoFijoXn.add(xn);
                 puntoFijoFxn.add(fx);
-                puntoFijoEa.add(Math.abs(xn - xa));
-                puntoFijoEr.add(Math.abs((xn - xa)/xn));
+                puntoFijoEa.add((xn.subtract(xa)).abs());
+                puntoFijoEr.add(((xn.subtract(xa)).divide(xn)).abs());
 	}
-	if (fx == 0) {
+	if (fx.equals(BigDecimal.ZERO)) {
 		return xa+" es raiz";
 	}
-	else if (error < tolerancia) {
+	else if (error.compareTo(tolerancia) < 0) {
 		return xa+" es una aproximacion con una tolerancia = "+tolerancia;
 	}
 	else {
@@ -296,42 +312,48 @@ public class Metodos {
 	}
 }
     
-    public String Newton(double tolerancia, double x0, int iter, String f,
+    public String Newton(double tolerancia1, double x01, int iter, String f,
                         String df, boolean errorAbs){
-        double x1 = 0;
-        double fx = funcion(f,x0);//F(x1)
-	double dfx = funcion(df,x0);//F'(x1)
+        BigDecimal x0 = new BigDecimal(x01);
+        BigDecimal tolerancia = new BigDecimal(tolerancia1);
+        
+        BigDecimal x1 = BigDecimal.ZERO;
+        BigDecimal fx = new BigDecimal(funcion(f,x0.doubleValue()));//F(x1)
+	BigDecimal dfx = new BigDecimal(funcion(df,x0.doubleValue()));//F'(x1)
 	int contador = 0;
-	double error = tolerancia + 1;
+	BigDecimal error = tolerancia.add(BigDecimal.ONE);
         newtonXn.add(x0);
         newtonFx.add(fx);
         newtonFdx.add(dfx);
-        newtonEa.add(0.0);
-        newtonEr.add(0.0);
-	while ((error > tolerancia) && (fx != 0) && (dfx != 0) && (contador < iter)) {
-		x1 = x0 - (fx / dfx);
-		fx = funcion(f,x1);//F(x1)
-		dfx = funcion(df,x1);//F'(x1)
+        newtonEa.add(BigDecimal.ZERO);
+        newtonEr.add(BigDecimal.ZERO);
+        
+	while ((error.compareTo(tolerancia) > 0) && (!fx.equals(BigDecimal.ZERO)) 
+                && (!dfx.equals(BigDecimal.ZERO)) && (contador < iter)) {
+		
+                x1 = x0.subtract((fx.divide(dfx, RoundingMode.UP)));
+		fx = new BigDecimal(funcion(f,x1.doubleValue()));//F(x1)
+		dfx = new BigDecimal(funcion(df,x1.doubleValue()));//F'(x1)
                 if(errorAbs){
-                    error = Math.abs(x1 - x0);
+                    error = (x1.subtract(x0)).abs();
                 }else{
-                    error = Math.abs((x1 - x0)/x1);
+                    error = (x1.subtract(x0).divide(x1, RoundingMode.UP)).abs();
                 }
 		x0 = x1;
 		contador++;
                 newtonXn.add(x0);
                 newtonFx.add(fx);
                 newtonFdx.add(dfx);
-                newtonEa.add(Math.abs(x1 - x0));
-                newtonEr.add(Math.abs((x1 - x0)/x1));
+                newtonEa.add((x1.subtract(x0)).abs());
+                newtonEr.add((x1.subtract(x0).divide(x1, RoundingMode.UP)).abs());
         }
-	if (fx == 0) {
+	if (fx.equals(BigDecimal.ZERO)) {
 		return x0+" es raiz";
 	}
-	else if (error < tolerancia) {
+	else if (error.compareTo(tolerancia)<0) {
 		return x1+" es una aproximacion a una raiz con una tolerancia = "+tolerancia;
 	}
-	else if (dfx == 0) {
+	else if (dfx.equals(BigDecimal.ZERO)) {
 		return x1+" es una posible raiz multiple";
 	}
 	else {
@@ -341,49 +363,56 @@ public class Metodos {
     }
 
 
-    public String MetodoDeLaSecante(double tolerancia, double x0, double x1,
+    public String MetodoDeLaSecante(double tolerancia1, double x01, double x11,
                                     int iter, String f, boolean errorAbs) {
-	double fx0 = funcion(f,x0);
+	BigDecimal tolerancia = new BigDecimal(tolerancia1);
+        BigDecimal x0 = new BigDecimal(x01);
+        BigDecimal x1 = new BigDecimal(x11);
+        BigDecimal fx0 = new BigDecimal(funcion(f,x0.doubleValue()));
         secanteXn.add(x0);
         secanteFxn.add(fx0);
-        if (fx0 == 0) {
+        if (fx0.equals(BigDecimal.ZERO)) {
 		return x0+" es raiz";
 	}
 	else {
-		double fx1 = funcion(f,x1);
+		BigDecimal fx1 = new BigDecimal(funcion(f,x1.doubleValue()));
 		int contador = 0;
-		double error = tolerancia + 1;
-		double den = fx1 - fx0;
+		BigDecimal error = tolerancia.add(BigDecimal.ONE);
+		BigDecimal den = fx1.subtract(fx0);
 		secanteXn.add(x1);
                 secanteFxn.add(fx1);
-                secanteEa.add(0.0);
-                secanteEr.add(0.0);
-		while ((error < tolerancia) && (fx1 != 0) && (den != 0) && (contador < iter)) {
-			double x2 = x1 - (fx1 * (x1 - x0) / den);
+                secanteEa.add(BigDecimal.ZERO);
+                secanteEr.add(BigDecimal.ZERO);
+                
+		while ((error.compareTo(tolerancia) > 0) && (!fx1.equals(BigDecimal.ZERO)) 
+                        && (!den.equals(BigDecimal.ZERO)) && (contador < iter)) {
+			
+                        BigDecimal x2 = x1.subtract((fx1.multiply(x1.subtract(x0))).divide(den, RoundingMode.UP));
+                        //double x2 = x1 - (fx1 * (x1 - x0) / den);
 			if(errorAbs){
-                            error = Math.abs(x2 - x1);   
+                            error = (x2.subtract(x1)).abs();
                         }else{
-                            error = Math.abs((x2 - x1)/x2);
+                            error = ((x2.subtract(x1)).divide(x2, RoundingMode.UP)).abs();
                         }
 			x0 = x1;
 			fx0 = fx1;
 			x1 = x2;
-			fx1 = funcion(f,x1);
-			den = fx1 - fx0;
+			fx1 = new BigDecimal(funcion(f,x1.doubleValue()));
+			den = fx1.subtract(fx0);
 			contador++;
                         secanteXn.add(x1);
                         secanteFxn.add(fx1);
-                        secanteEa.add(Math.abs(x2 - x1));
-                        secanteEr.add(Math.abs((x2 - x1)/x2));
+                        secanteEa.add((x2.subtract(x1)).abs());
+                        secanteEr.add(((x2.subtract(x1)).divide(x2, RoundingMode.UP)).abs());
                         
 		}
-		if (fx1 == 0) {
+		if (fx1.equals(BigDecimal.ZERO)) {
 			return x1+" es raiz";
-		}
-		else if (error < tolerancia) {
+		} 
+		else if (error.compareTo(tolerancia)<0) {
 			return x1+" es aproximacion a una raiz con una tolerancia = "+tolerancia;
 		}
-		else if (den == 0) {
+		else if (den.equals(BigDecimal.ZERO)) {
 			return "Hay una posible raiz multiple";
 		}
 		else {
@@ -393,48 +422,56 @@ public class Metodos {
 }
 
 
-    public String RaicesMultiples(double tolerancia, double x0, int iter, String f,
+    public String RaicesMultiples(double tolerancia1, double x01, int iter, String f,
                         String df, String ddf, boolean errorAbs){
-        double x1 = 0;
-        double fx = funcion(f,x0);//F(x1)
-	double dfx = funcion(df,x0);//F'(x1)
-        double ddfx = funcion(ddf,x0);
+        BigDecimal tolerancia = new BigDecimal(tolerancia1);
+        BigDecimal x0 = new BigDecimal(x01);
+        BigDecimal x1 = BigDecimal.ZERO;
+        BigDecimal fx = new BigDecimal(funcion(f,x0.doubleValue()));//F(x1)
+	BigDecimal dfx = new BigDecimal(funcion(df,x0.doubleValue()));//F'(x1)
+        BigDecimal ddfx = new BigDecimal(funcion(ddf,x0.doubleValue()));
 	int contador = 0;
-	double error = tolerancia + 1;
+	BigDecimal error = tolerancia.add(BigDecimal.ONE);
         raicesXn.add(x0);
         raicesFx.add(fx);
         raicesFdx.add(dfx);
         raicesFddx.add(ddfx);
-        raicesEa.add(0.0);
-        raicesEr.add(0.0);
-        double den = Math.pow(dfx, 2)-(fx*ddfx);
-	while ((error > tolerancia) && (fx != 0) && (den != 0) && (contador < iter)) {
-		x1 = x0 - ((fx*dfx)/den);
-		fx = funcion(f,x1);
-		dfx = funcion(df,x1);
-                ddfx = funcion(ddf,x1);
+        raicesEa.add(BigDecimal.ZERO);
+        raicesEr.add(BigDecimal.ZERO);
+        
+        //double den = Math.pow(dfx, 2)-(fx*ddfx);
+	BigDecimal den = (dfx.pow(2)).subtract((fx.multiply(ddfx)));
+        
+        while ((error.compareTo(tolerancia) > 0) && (!fx.equals(BigDecimal.ZERO))
+                && (!den.equals(BigDecimal.ZERO)) && (contador < iter)) {
+		x1 = x0.subtract((fx.multiply(dfx)).divide(den, RoundingMode.UP));
+                //x1 = x0 - ((fx*dfx)/den);
+		fx = new BigDecimal(funcion(f,x1.doubleValue()));
+		dfx = new BigDecimal(funcion(df,x1.doubleValue()));
+                ddfx = new BigDecimal(funcion(ddf,x1.doubleValue()));
                 if(errorAbs){
-                    error = Math.abs(x1 - x0);
+                    error = (x1.subtract(x0)).abs();
                 }else{
-                    error = Math.abs((x1 - x0)/x1);
+                    error = ((x1.subtract(x0)).divide(x1, RoundingMode.UP)).abs();
                 }
 		x0 = x1;
 		contador++;
-                den = Math.pow(dfx, 2)-(fx*ddfx);
+                den = (dfx.pow(2)).subtract((fx.multiply(ddfx)));
+                //den = Math.pow(dfx, 2)-(fx*ddfx);
                 raicesXn.add(x0);
                 raicesFx.add(fx);
                 raicesFdx.add(dfx);
                 raicesFddx.add(ddfx);
-                raicesEa.add(Math.abs(x1 - x0));
-                raicesEr.add(Math.abs((x1 - x0)/x1));
+                raicesEa.add((x1.subtract(x0)).abs());
+                raicesEr.add(((x1.subtract(x0)).divide(x1, RoundingMode.UP)).abs());
         }
-	if (fx == 0) {
+	if (fx.equals(BigDecimal.ZERO)) {
 		return x0+" es raiz";
 	}
-	else if (error < tolerancia) {
+	else if (error.compareTo(tolerancia)<0) {
 		return x1+" es una aproximacion a una raiz con una tolerancia = "+tolerancia;
 	}
-	else if (den == 0) {
+	else if (den.equals(BigDecimal.ZERO)) {
 		return "Posible raiz multiple";
 	}
 	else {
@@ -475,103 +512,103 @@ public class Metodos {
         return biseccionEa;
     }
 
-    public ArrayList<Double> getReglaFalsaXi() {
+    public ArrayList<BigDecimal> getReglaFalsaXi() {
         return reglaFalsaXi;
     }
 
-    public ArrayList<Double> getReglaFalsaXs() {
+    public ArrayList<BigDecimal> getReglaFalsaXs() {
         return reglaFalsaXs;
     }
 
-    public ArrayList<Double> getReglaFalsaXm() {
+    public ArrayList<BigDecimal> getReglaFalsaXm() {
         return reglaFalsaXm;
     }
 
-    public ArrayList<Double> getReglaFalsaFxm() {
+    public ArrayList<BigDecimal> getReglaFalsaFxm() {
         return reglaFalsaFxm;
     }
 
-    public ArrayList<Double> getReglaFalsaEr() {
+    public ArrayList<BigDecimal> getReglaFalsaEr() {
         return reglaFalsaEr;
     }
 
-    public ArrayList<Double> getReglaFalsaEa() {
+    public ArrayList<BigDecimal> getReglaFalsaEa() {
         return reglaFalsaEa;
     }
 
-    public ArrayList<Double> getPuntoFijoXn() {
+    public ArrayList<BigDecimal> getPuntoFijoXn() {
         return puntoFijoXn;
     }
 
-    public ArrayList<Double> getPuntoFijoFxn() {
+    public ArrayList<BigDecimal> getPuntoFijoFxn() {
         return puntoFijoFxn;
     }
 
-    public ArrayList<Double> getPuntoFijoEa() {
+    public ArrayList<BigDecimal> getPuntoFijoEa() {
         return puntoFijoEa;
     }
 
-    public ArrayList<Double> getPuntoFijoEr() {
+    public ArrayList<BigDecimal> getPuntoFijoEr() {
         return puntoFijoEr;
     }
 
-    public ArrayList<Double> getNewtonXn() {
+    public ArrayList<BigDecimal> getNewtonXn() {
         return newtonXn;
     }
 
-    public ArrayList<Double> getNewtonFx() {
+    public ArrayList<BigDecimal> getNewtonFx() {
         return newtonFx;
     }
 
-    public ArrayList<Double> getNewtonFdx() {
+    public ArrayList<BigDecimal> getNewtonFdx() {
         return newtonFdx;
     }
 
-    public ArrayList<Double> getNewtonEa() {
+    public ArrayList<BigDecimal> getNewtonEa() {
         return newtonEa;
     }
 
-    public ArrayList<Double> getNewtonEr() {
+    public ArrayList<BigDecimal> getNewtonEr() {
         return newtonEr;
     }
 
-    public ArrayList<Double> getSecanteXn() {
+    public ArrayList<BigDecimal> getSecanteXn() {
         return secanteXn;
     }
 
-    public ArrayList<Double> getSecanteFxn() {
+    public ArrayList<BigDecimal> getSecanteFxn() {
         return secanteFxn;
     }
 
-    public ArrayList<Double> getSecanteEa() {
+    public ArrayList<BigDecimal> getSecanteEa() {
         return secanteEa;
     }
 
-    public ArrayList<Double> getSecanteEr() {
+    public ArrayList<BigDecimal> getSecanteEr() {
         return secanteEr;
     }
 
-    public ArrayList<Double> getRaicesXn() {
+    public ArrayList<BigDecimal> getRaicesXn() {
         return raicesXn;
     }
 
-    public ArrayList<Double> getRaicesFx() {
+    public ArrayList<BigDecimal> getRaicesFx() {
         return raicesFx;
     }
 
-    public ArrayList<Double> getRaicesFdx() {
+    public ArrayList<BigDecimal> getRaicesFdx() {
         return raicesFdx;
     }
 
-    public ArrayList<Double> getRaicesFddx() {
+    public ArrayList<BigDecimal> getRaicesFddx() {
         return raicesFddx;
     }
 
-    public ArrayList<Double> getRaicesEa() {
+    public ArrayList<BigDecimal> getRaicesEa() {
         return raicesEa;
     }
 
-    public ArrayList<Double> getRaicesEr() {
+    public ArrayList<BigDecimal> getRaicesEr() {
         return raicesEr;
     }
 }
