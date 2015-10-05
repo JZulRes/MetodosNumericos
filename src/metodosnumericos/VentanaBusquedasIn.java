@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -97,17 +99,7 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Grafica", panelGrafica);
 
-        javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
-        panelTabla.setLayout(panelTablaLayout);
-        panelTablaLayout.setHorizontalGroup(
-            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 386, Short.MAX_VALUE)
-        );
-        panelTablaLayout.setVerticalGroup(
-            panelTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 297, Short.MAX_VALUE)
-        );
-
+        panelTabla.setLayout(new java.awt.BorderLayout());
         jTabbedPane1.addTab("Tabla", panelTabla);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -140,10 +132,10 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -161,9 +153,9 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
                             .addComponent(jButton2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jTabbedPane1)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -193,7 +185,16 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
         panelGrafica.removeAll();
         panelGrafica.add(panel);
         panelGrafica.updateUI();
-
+        
+        Metodos m = new Metodos();
+        m.Busqueda(xi, delta, Integer.parseInt(jTextField3.getText()), funcion);
+        GeneradorTablas g = new GeneradorTablas();
+        JTable tabla = g.tablaBusquedas(m.getBusquedax(), m.getBusquedaFx());
+        
+        panelTabla.removeAll();
+        panelTabla.add(new JScrollPane(tabla));
+        panelTabla.updateUI();
+        
         VentanaUnaVariable vuv = new VentanaUnaVariable();
         
         System.out.println("Mire se encontro: " + funcion);
