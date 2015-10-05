@@ -57,16 +57,46 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
         });
 
         jButton2.setText("Biseccion");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("ReglaFalsa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Punto Fijo");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Metodo de Newton");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Metodo de la Secante");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Raices Multiples");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("< Atras");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -173,6 +203,54 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //boton VentanaBiseccion
+        String f = getEvaluador();
+        VentanaBiseccion vb = new VentanaBiseccion();
+        this.setVisible(false);
+        vb.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // boton ventana regla falsa
+        String f = getEvaluador();
+        VentanaReglaFalsa rf = new VentanaReglaFalsa();
+        this.setVisible(false);
+        rf.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // boton Ventana Punto Fijo
+        String f = getEvaluador();
+        VentanaPuntoFijo pf = new VentanaPuntoFijo();
+        this.setVisible(false);
+        pf.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        //boton ventana metodo de newton
+        String f = getEvaluador();
+        VentanaMetododeNewton mn = new VentanaMetododeNewton();
+        this.setVisible(false);
+        mn.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // boton ventana metodo de la secante 
+        String f = getEvaluador();
+        VentanaMetodoSecante ms = new VentanaMetodoSecante();
+        this.setVisible(false);
+        ms.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // boton ventana raices multiples 
+        String f = getEvaluador();
+        VentanaRaicesM rm = new VentanaRaicesM();
+        this.setVisible(false);
+        rm.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
      
 public String getEvaluador(){
         return this.jTextField1.getText();

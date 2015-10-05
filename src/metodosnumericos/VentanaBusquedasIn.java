@@ -28,6 +28,7 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.setTitle("Busquedas Incrementales");
     }
     String funcion;
     public void RecibirFuncion(String f){
@@ -61,7 +62,7 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
 
         jLabel1.setText("Busquedas Incrementales");
 
-        jButton1.setText("< Anterior");
+        jButton1.setText("< Atrás");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -135,7 +136,7 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
