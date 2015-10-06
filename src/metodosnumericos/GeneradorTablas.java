@@ -44,6 +44,7 @@ public class GeneradorTablas {
         return tabla;
     }
     
+    //Funciona para punto fijo y secante
     public JTable tablaPuntoFijo(ArrayList<BigDecimal> puntoFijoXn, ArrayList<BigDecimal> puntoFijoFxn,
                                 ArrayList<BigDecimal> puntoFijoEa, ArrayList<BigDecimal> puntoFijoEr){
         
@@ -52,6 +53,37 @@ public class GeneradorTablas {
         for(int i = 0; i<puntoFijoXn.size();i++){
             Object[] fila = {i,puntoFijoXn.get(i),puntoFijoFxn.get(i),
                                puntoFijoEa.get(i),puntoFijoEr.get(i)};
+            modelo.addRow(fila);
+        }
+        JTable tabla = new JTable(modelo); 
+        return tabla;
+    }
+    
+    public JTable tablaNewton(ArrayList<BigDecimal> newtonXn, ArrayList<BigDecimal> newtonFxn,
+                              ArrayList<BigDecimal> newtonFdx, ArrayList<BigDecimal> newtonEa, 
+                              ArrayList<BigDecimal> newtonEr){
+        
+        String col[]={"n", "Xn", "Fxn", "F'(xn)", "Error absoluto", "Error relativo"};
+        DefaultTableModel modelo = new DefaultTableModel(col,0);
+        for(int i = 0; i<newtonXn.size();i++){
+            Object[] fila = {i,newtonXn.get(i),newtonFxn.get(i),
+                               newtonFdx.get(i),newtonEa.get(i),
+                               newtonEr.get(i)};
+            modelo.addRow(fila);
+        }
+        JTable tabla = new JTable(modelo); 
+        return tabla;
+    }
+    
+    public JTable tablaRaicesM(ArrayList<BigDecimal> rmXn, ArrayList<BigDecimal> rmFxn,
+                               ArrayList<BigDecimal> rmFdx, ArrayList<BigDecimal> rmFddx, 
+                               ArrayList<BigDecimal> rmEa, ArrayList<BigDecimal> rmEr){
+        
+        String col[]={"n", "Xn", "Fxn", "F'(xn)", "F''(xn)" ,"Error absoluto", "Error relativo"};
+        DefaultTableModel modelo = new DefaultTableModel(col,0);
+        for(int i = 0; i<rmXn.size();i++){
+            Object[] fila = {i,rmXn.get(i),rmFxn.get(i), rmFdx.get(i), rmFddx.get(i),
+                             rmEa.get(i), rmEr.get(i)};
             modelo.addRow(fila);
         }
         JTable tabla = new JTable(modelo); 
