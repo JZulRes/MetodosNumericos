@@ -172,7 +172,7 @@ public class VentanaReglaFalsa extends javax.swing.JFrame {
     
     private void butCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCalcularActionPerformed
         // TODO add your handling code here:
-                  Graficador t = new Graficador();
+            Graficador t = new Graficador();
             double tolerancia = Double.parseDouble(txtTolerancia.getText());
             int iteraciones = Integer.parseInt(txtIteraciones.getText());
             double xi = Double.parseDouble(txtXi.getText());

@@ -6,6 +6,7 @@
 package metodosnumericos;
 import java.util.ArrayList;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 /**
  * @author Juan Fernando Zuluaga <jzulua50@eafit.edu.co>
@@ -162,7 +163,7 @@ public class Metodos {
 			if(errorAbs){
                             error = xm.subtract(xaux).abs();
                         }else{
-                            error = ((xm.subtract(xaux)).divide(xm, RoundingMode.UP).abs());
+                            error = ((xm.subtract(xaux)).divide(xm,MathContext.DECIMAL128).abs());
                         }
 			contador++;
                         biseccionXi.add(xi);
@@ -170,7 +171,7 @@ public class Metodos {
                         biseccionXm.add(xm);
                         biseccionFxm.add(fxm);
                         biseccionEa.add(xm.subtract(xaux).abs());
-                        biseccionEr.add(((xm.subtract(xaux)).divide(xm, RoundingMode.UP)).abs());
+                        biseccionEr.add(((xm.subtract(xaux)).divide(xm,MathContext.DECIMAL128)).abs());
                       //  biseccionEr.add(BigDecimal.ZERO);
                 }
 		if (fxm.equals(BigDecimal.ZERO)) {
@@ -215,7 +216,7 @@ public class Metodos {
 	}
         else if ((fxi.multiply(fxs)).compareTo(BigDecimal.ZERO) < 0) {
                 
-		BigDecimal xm = xi.subtract((fxi.multiply(xs.subtract(xi))).divide((fxs.subtract(fxi)), RoundingMode.UP));
+		BigDecimal xm = xi.subtract((fxi.multiply(xs.subtract(xi))).divide((fxs.subtract(fxi)),MathContext.DECIMAL128));
 		
                 BigDecimal fxm = new BigDecimal(funcion(f,xm.doubleValue()));
 		int contador = 1;
@@ -239,20 +240,20 @@ public class Metodos {
 			}
 			BigDecimal xaux = xm;
 			//xm = xi - ((fxi*(xs - xi)) / (fxs - fxi));
-			xm = xi.subtract((fxi.multiply(xs.subtract(xi))).divide((fxs.subtract(fxi)), RoundingMode.UP));
+			xm = xi.subtract((fxi.multiply(xs.subtract(xi))).divide((fxs.subtract(fxi)),MathContext.DECIMAL128));
                         
                         fxm = new BigDecimal(funcion(f,xm.doubleValue()));
 			if(errorAbs){
                             error = xm.subtract(xaux).abs();
                         }else{
-                            error = ((xm.subtract(xaux)).divide(xm, RoundingMode.UP).abs());
+                            error = ((xm.subtract(xaux)).divide(xm,MathContext.DECIMAL128).abs());
                         }
                         reglaFalsaXi.add(xi);
                         reglaFalsaXs.add(xs);
                         reglaFalsaXm.add(xm);
                         reglaFalsaFxm.add(fxm);
                         reglaFalsaEa.add(xm.subtract(xaux).abs());
-                        reglaFalsaEr.add((xm.subtract(xaux)).divide(xm, RoundingMode.UP).abs());
+                        reglaFalsaEr.add((xm.subtract(xaux)).divide(xm,MathContext.DECIMAL128).abs());
                         contador++;
 		}
 		if (fxm.equals(BigDecimal.ZERO)) {
@@ -291,14 +292,14 @@ public class Metodos {
 		if(errorAbs){
                     error = (xn.subtract(xa)).abs();
                 }else{
-                    error = ((xn.subtract(xa)).divide(xn, RoundingMode.UP)).abs();
+                    error = ((xn.subtract(xa)).divide(xn,MathContext.DECIMAL128)).abs();
                 }
-		xa = xn;
-		contador++;
                 puntoFijoXn.add(xn);
                 puntoFijoFxn.add(fx);
                 puntoFijoEa.add((xn.subtract(xa)).abs());
-                puntoFijoEr.add(((xn.subtract(xa)).divide(xn, RoundingMode.UP)).abs());
+                puntoFijoEr.add(((xn.subtract(xa)).divide(xn,MathContext.DECIMAL128)).abs());
+		xa = xn;
+		contador++;
 	}
 	if (fx.equals(BigDecimal.ZERO)) {
 		return xa+" es raiz";
@@ -329,22 +330,27 @@ public class Metodos {
         
 	while ((error.compareTo(tolerancia) > 0) && (!fx.equals(BigDecimal.ZERO)) 
                 && (!dfx.equals(BigDecimal.ZERO)) && (contador < iter)) {
-		
-                x1 = x0.subtract((fx.divide(dfx, RoundingMode.UP)));
+                System.out.println(x0);
+                System.out.println(fx);
+                System.out.println(dfx);
+                x1 = x0.subtract((fx.divide(dfx,MathContext.DECIMAL128))); 
 		fx = new BigDecimal(funcion(f,x1.doubleValue()));//F(x1)
 		dfx = new BigDecimal(funcion(df,x1.doubleValue()));//F'(x1)
+                System.out.println("x1 "+x1);
+                System.out.println("fx "+fx);
+                System.out.println("dfx "+dfx);
                 if(errorAbs){
                     error = (x1.subtract(x0)).abs();
                 }else{
-                    error = (x1.subtract(x0).divide(x1, RoundingMode.UP)).abs();
+                    error = ((x1.subtract(x0)).divide(x1,MathContext.DECIMAL128)).abs();
                 }
-		x0 = x1;
-		contador++;
                 newtonXn.add(x0);
                 newtonFx.add(fx);
                 newtonFdx.add(dfx);
                 newtonEa.add((x1.subtract(x0)).abs());
-                newtonEr.add((x1.subtract(x0).divide(x1, RoundingMode.UP)).abs());
+                newtonEr.add(((x1.subtract(x0)).divide(x1,MathContext.DECIMAL128)).abs());
+                x0 = x1;
+		contador++;
         }
 	if (fx.equals(BigDecimal.ZERO)) {
 		return x0+" es raiz";
@@ -386,23 +392,24 @@ public class Metodos {
 		while ((error.compareTo(tolerancia) > 0) && (!fx1.equals(BigDecimal.ZERO)) 
                         && (!den.equals(BigDecimal.ZERO)) && (contador < iter)) {
 			
-                        BigDecimal x2 = x1.subtract((fx1.multiply(x1.subtract(x0))).divide(den, RoundingMode.UP));
+                        BigDecimal x2 = x1.subtract((fx1.multiply(x1.subtract(x0))).divide(den,MathContext.DECIMAL128));
                         //double x2 = x1 - (fx1 * (x1 - x0) / den);
 			if(errorAbs){
                             error = (x2.subtract(x1)).abs();
                         }else{
-                            error = ((x2.subtract(x1)).divide(x2, RoundingMode.UP)).abs();
+                            error = ((x2.subtract(x1)).divide(x2,MathContext.DECIMAL128)).abs();
                         }
+                        secanteXn.add(x1);
+                        secanteFxn.add(fx1);
+                        secanteEa.add((x2.subtract(x1)).abs());
+                        secanteEr.add(((x2.subtract(x1)).divide(x2,MathContext.DECIMAL128)).abs());
+                        
 			x0 = x1;
 			fx0 = fx1;
 			x1 = x2;
 			fx1 = new BigDecimal(funcion(f,x1.doubleValue()));
 			den = fx1.subtract(fx0);
 			contador++;
-                        secanteXn.add(x1);
-                        secanteFxn.add(fx1);
-                        secanteEa.add((x2.subtract(x1)).abs());
-                        secanteEr.add(((x2.subtract(x1)).divide(x2, RoundingMode.UP)).abs());
                         
 		}
 		if (fx1.equals(BigDecimal.ZERO)) {
@@ -443,7 +450,7 @@ public class Metodos {
         
         while ((error.compareTo(tolerancia) > 0) && (!fx.equals(BigDecimal.ZERO))
                 && (!den.equals(BigDecimal.ZERO)) && (contador < iter)) {
-		x1 = x0.subtract((fx.multiply(dfx)).divide(den, RoundingMode.UP));
+		x1 = x0.subtract((fx.multiply(dfx)).divide(den,MathContext.DECIMAL128));
                 //x1 = x0 - ((fx*dfx)/den);
 		fx = new BigDecimal(funcion(f,x1.doubleValue()));
 		dfx = new BigDecimal(funcion(df,x1.doubleValue()));
@@ -451,7 +458,7 @@ public class Metodos {
                 if(errorAbs){
                     error = (x1.subtract(x0)).abs();
                 }else{
-                    error = ((x1.subtract(x0)).divide(x1, RoundingMode.UP)).abs();
+                    error = ((x1.subtract(x0)).divide(x1,MathContext.DECIMAL128)).abs();
                 }
 		x0 = x1;
 		contador++;
@@ -462,7 +469,7 @@ public class Metodos {
                 raicesFdx.add(dfx);
                 raicesFddx.add(ddfx);
                 raicesEa.add((x1.subtract(x0)).abs());
-                raicesEr.add(((x1.subtract(x0)).divide(x1, RoundingMode.UP)).abs());
+                raicesEr.add(((x1.subtract(x0)).divide(x1,MathContext.DECIMAL128)).abs());
         }
 	if (fx.equals(BigDecimal.ZERO)) {
 		return x0+" es raiz";

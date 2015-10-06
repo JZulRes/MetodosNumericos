@@ -5,9 +5,14 @@
  */
 package metodosnumericos;
 
+import javax.swing.JOptionPane;
 import org.jfree.chart.ChartPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 /**
  *
@@ -163,6 +168,42 @@ public class VentanaMetododeNewton extends javax.swing.JFrame {
 
     private void butCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCalcularActionPerformed
         // TODO add your handling code here:
+            Graficador t = new Graficador();
+            double tolerancia = Double.parseDouble(txtTolerancia.getText());
+            int iteraciones = Integer.parseInt(txtIteraciones.getText());
+            double xi = Double.parseDouble(txtX0.getText());
+            String fdx = txtFdx.getText();
+        
+            
+            Metodos m = new Metodos();
+            JOptionPane.showMessageDialog(null,m.Newton(tolerancia, xi, iteraciones, funcion, fdx, true),
+                                      "Resultado", JOptionPane.INFORMATION_MESSAGE);
+        
+            GeneradorTablas g = new GeneradorTablas();
+           
+            JTable tabla = g.tablaNewton(m.getNewtonXn(), m.getNewtonFx(), 
+                                         m.getNewtonFdx(),m.getNewtonEa(), 
+                                         m.getNewtonEr());
+            
+            double xs;
+            //Si Xi < Xv
+            if(xi<m.getNewtonXn().get(m.getNewtonXn().size()-1).doubleValue()){
+                xs = m.getNewtonXn().get(m.getNewtonXn().size()-1).doubleValue()+5;
+            }else{
+                xs = xi;
+                xi = m.getNewtonXn().get(m.getNewtonXn().size()-1).doubleValue()-5;
+            }
+            
+            panelGrafica.removeAll();
+            panelGrafica.add(t.series(funcion, xi, xs));
+            panelGrafica.updateUI();
+         
+            panelTabla.removeAll();
+            panelTabla.add(new JScrollPane(tabla));
+            panelTabla.updateUI();
+        
+
+        
     }//GEN-LAST:event_butCalcularActionPerformed
 
     /**
