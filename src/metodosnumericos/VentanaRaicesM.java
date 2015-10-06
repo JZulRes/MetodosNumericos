@@ -41,7 +41,7 @@ public class VentanaRaicesM extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        txtCalcular = new javax.swing.JButton();
+        butCalcular = new javax.swing.JButton();
         txtX0 = new javax.swing.JTextField();
         txtTolerancia = new javax.swing.JTextField();
         txtIteraciones = new javax.swing.JTextField();
@@ -67,10 +67,10 @@ public class VentanaRaicesM extends javax.swing.JFrame {
             }
         });
 
-        txtCalcular.setText("Calcular");
-        txtCalcular.addActionListener(new java.awt.event.ActionListener() {
+        butCalcular.setText("Calcular");
+        butCalcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCalcularActionPerformed(evt);
+                butCalcularActionPerformed(evt);
             }
         });
 
@@ -108,7 +108,7 @@ public class VentanaRaicesM extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jButton1)
                         .addGap(44, 44, 44)
-                        .addComponent(txtCalcular))
+                        .addComponent(butCalcular))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(126, 126, 126)
                         .addComponent(jLabel1)))
@@ -141,7 +141,7 @@ public class VentanaRaicesM extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
-                            .addComponent(txtCalcular))))
+                            .addComponent(butCalcular))))
                 .addContainerGap())
         );
 
@@ -160,9 +160,9 @@ public class VentanaRaicesM extends javax.swing.JFrame {
         vuv.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void txtCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCalcularActionPerformed
+    private void butCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCalcularActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCalcularActionPerformed
+    }//GEN-LAST:event_butCalcularActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,7 +181,7 @@ public class VentanaRaicesM extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaRaicesM.class.getName()).log(java.utitxtX0evel.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaRaicesM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(VentanaRaicesM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
@@ -200,6 +200,7 @@ public class VentanaRaicesM extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton butCalcular;
     private java.awt.Canvas canvas1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -209,7 +210,6 @@ public class VentanaRaicesM extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel panelGrafica;
     private javax.swing.JPanel panelTabla;
-    private javax.swing.JButton txtCalcular;
     private javax.swing.JTextField txtIteraciones;
     private javax.swing.JTextField txtTolerancia;
     private javax.swing.JTextField txtX0;
