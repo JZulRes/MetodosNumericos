@@ -28,6 +28,7 @@ public class GeneradorTablas {
         return tabla;
     }
     
+    //Funciona para Biseccion y regla falsa
     public JTable tablaBiseccion(ArrayList<BigDecimal> biseccionXi, ArrayList<BigDecimal> biseccionXs,
                                 ArrayList<BigDecimal> biseccionXm, ArrayList<BigDecimal> biseccionFxm,
                                 ArrayList<BigDecimal> biseccionEa, ArrayList<BigDecimal> biseccionEr){
@@ -42,6 +43,21 @@ public class GeneradorTablas {
         JTable tabla = new JTable(modelo); 
         return tabla;
     }
+    
+    public JTable tablaPuntoFijo(ArrayList<BigDecimal> puntoFijoXn, ArrayList<BigDecimal> puntoFijoFxn,
+                                ArrayList<BigDecimal> puntoFijoEa, ArrayList<BigDecimal> puntoFijoEr){
+        
+        String col[]={"n", "Xn", "Fxn", "Error absoluto", "Error relativo"};
+        DefaultTableModel modelo = new DefaultTableModel(col,0);
+        for(int i = 0; i<puntoFijoXn.size();i++){
+            Object[] fila = {i,puntoFijoXn.get(i),puntoFijoFxn.get(i),
+                               puntoFijoEa.get(i),puntoFijoEr.get(i)};
+            modelo.addRow(fila);
+        }
+        JTable tabla = new JTable(modelo); 
+        return tabla;
+    }
+    
     
     
 }

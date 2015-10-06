@@ -30,11 +30,28 @@ public class Graficador {
             iter=iter+0.2;
         }
         XYSeriesCollection collection = new XYSeriesCollection(series);
+        
         JFreeChart chart = ChartFactory.createXYLineChart("Grafica", "X", "Y", collection);
         
         ChartPanel panel = new ChartPanel(chart);
         panel.setPreferredSize(new java.awt.Dimension(400,300));
         return panel;
     }
+    
+    public XYSeries series2(String f, String nombre, double xi, double xs){
+        
+        Evaluador func = new Evaluador();
+        XYSeries series = new XYSeries(nombre);
+        
+        double iter = xi;
+        while(iter<xs){
+            double y = func.Evaluador2(f, iter);
+            series.add(iter,y);
+            iter=iter+0.2;
+        }
+        return series;
+    }
+    
+  
     
 }

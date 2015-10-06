@@ -15,6 +15,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import org.jfree.data.xy.XYSeries;
 
 
 

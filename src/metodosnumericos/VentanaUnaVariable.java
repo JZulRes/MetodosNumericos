@@ -217,6 +217,7 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
         // boton ventana regla falsa
         String f = getEvaluador();
         VentanaReglaFalsa rf = new VentanaReglaFalsa();
+        rf.RecibirFuncion(f);
         this.setVisible(false);
         rf.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -225,6 +226,7 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
         // boton Ventana Punto Fijo
         String f = getEvaluador();
         VentanaPuntoFijo pf = new VentanaPuntoFijo();
+        pf.RecibirFuncion(f);
         this.setVisible(false);
         pf.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed

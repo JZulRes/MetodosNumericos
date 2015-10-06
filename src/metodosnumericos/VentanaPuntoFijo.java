@@ -5,10 +5,14 @@
  */
 package metodosnumericos;
 
+import javax.swing.JOptionPane;
 import org.jfree.chart.ChartPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.data.xy.XYSeries;
 /**
  *
  * @author Juan Fernando Zuluaga <jzulua50@eafit.edu.co>
@@ -39,11 +43,17 @@ public class VentanaPuntoFijo extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtXa = new javax.swing.JTextField();
+        txtTolerancia = new javax.swing.JTextField();
+        txtIteraciones = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        butCalcular = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtGx = new javax.swing.JTextField();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        panelGrafica = new javax.swing.JPanel();
+        canvas1 = new java.awt.Canvas();
+        panelTabla = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,11 +63,16 @@ public class VentanaPuntoFijo extends javax.swing.JFrame {
 
         jLabel4.setText("Iteraciones:");
 
-        jTextField1.setText("Xa");
+        txtXa.setText("Xa");
 
-        jTextField2.setText("Tolerancia");
+        txtTolerancia.setText("Tolerancia");
 
-        jTextField3.setText("Iteraciones");
+        txtIteraciones.setText("Iteraciones");
+        txtIteraciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIteracionesActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("< Atrás");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -66,36 +81,54 @@ public class VentanaPuntoFijo extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Calcular");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        butCalcular.setText("Calcular");
+        butCalcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                butCalcularActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("g(x):");
+
+        txtGx.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtGxActionPerformed(evt);
+            }
+        });
+
+        panelGrafica.add(canvas1);
+
+        jTabbedPane1.addTab("Grafica", panelGrafica);
+
+        panelTabla.setLayout(new java.awt.BorderLayout());
+        jTabbedPane1.addTab("Tabla", panelTabla);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtIteraciones)
+                            .addComponent(txtTolerancia)
+                            .addComponent(txtXa, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                            .addComponent(txtGx)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jButton1)
                         .addGap(90, 90, 90)
-                        .addComponent(jButton2)))
-                .addContainerGap(302, Short.MAX_VALUE))
+                        .addComponent(butCalcular)))
+                .addGap(18, 18, 18)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,19 +136,27 @@ public class VentanaPuntoFijo extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtXa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTolerancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                    .addComponent(txtIteraciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtGx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)))
+                    .addComponent(butCalcular)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 13, Short.MAX_VALUE))
         );
 
         pack();
@@ -127,9 +168,66 @@ public class VentanaPuntoFijo extends javax.swing.JFrame {
         vuv.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    String funcion;
+    
+    public void RecibirFuncion(String f){
+        funcion = f;
+    }
+
+    
+    private void butCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCalcularActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+            Graficador t = new Graficador();
+            double tolerancia = Double.parseDouble(txtTolerancia.getText());
+            int iteraciones = Integer.parseInt(txtIteraciones.getText());
+            double xi = Double.parseDouble(txtXa.getText());
+            String gx = txtGx.getText();
+        
+           
+            Metodos m = new Metodos();
+            JOptionPane.showMessageDialog(null,m.PuntoFijo(tolerancia, xi, iteraciones, funcion, gx, true),
+                                      "Resultado", JOptionPane.INFORMATION_MESSAGE);
+        
+            GeneradorTablas g = new GeneradorTablas();
+            JTable tabla = g.tablaPuntoFijo(m.getPuntoFijoXn(), m.getPuntoFijoFxn(),
+                                            m.getPuntoFijoEa(), m.getPuntoFijoEr());
+            
+            
+            double xs;
+            //Si Xi < Xv
+            if(xi<m.getPuntoFijoXn().get(m.getPuntoFijoXn().size()-1).doubleValue()){
+                xs = m.getPuntoFijoXn().get(m.getPuntoFijoXn().size()-1).doubleValue()+5;
+            }else{
+                xs = xi;
+                xi = m.getPuntoFijoXn().get(m.getPuntoFijoXn().size()-1).doubleValue()-5;
+            }
+            XYSeries series = t.series2(gx, "gx", xi, xs);
+            XYSeries seriesx = t.series2("x", "X", xi, xs);
+            XYSeriesCollection collection = new XYSeriesCollection(series);
+            collection.addSeries(seriesx);
+            JFreeChart chart = ChartFactory.createXYLineChart("Grafica", "X", "Y", collection);
+            ChartPanel panel = new ChartPanel(chart);
+            panel.setPreferredSize(new java.awt.Dimension(400,300));
+
+            panelGrafica.removeAll();
+            panelGrafica.add(panel);
+            panelGrafica.updateUI();
+         
+            panelTabla.removeAll();
+            panelTabla.add(new JScrollPane(tabla));
+            panelTabla.updateUI();
+        
+            VentanaUnaVariable vuv = new VentanaUnaVariable();
+        
+    }//GEN-LAST:event_butCalcularActionPerformed
+
+    private void txtGxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtGxActionPerformed
+
+    private void txtIteracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIteracionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIteracionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,13 +265,19 @@ public class VentanaPuntoFijo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton butCalcular;
+    private java.awt.Canvas canvas1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel panelGrafica;
+    private javax.swing.JPanel panelTabla;
+    private javax.swing.JTextField txtGx;
+    private javax.swing.JTextField txtIteraciones;
+    private javax.swing.JTextField txtTolerancia;
+    private javax.swing.JTextField txtXa;
     // End of variables declaration//GEN-END:variables
 }

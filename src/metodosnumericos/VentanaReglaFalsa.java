@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package metodosnumericos;
+import javax.swing.JOptionPane;
 import org.jfree.chart.ChartPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -39,35 +40,44 @@ public class VentanaReglaFalsa extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtXi = new javax.swing.JTextField();
+        txtXs = new javax.swing.JTextField();
+        txtTolerancia = new javax.swing.JTextField();
+        txtIteraciones = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        butCalcular = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        panelGrafica = new javax.swing.JPanel();
+        canvas1 = new java.awt.Canvas();
+        panelTabla = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setText("Xs:");
+        jLabel2.setText("Xi");
 
-        jLabel3.setText("Xi:");
+        jLabel3.setText("Xs:");
 
         jLabel4.setText("Tolerancia:");
 
         jLabel5.setText("Iteraciones:");
 
-        jTextField1.setText("Xs");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtXi.setText("Xi");
+        txtXi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtXiActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("Xi");
+        txtXs.setText("Xs");
+        txtXs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtXsActionPerformed(evt);
+            }
+        });
 
-        jTextField3.setText("Tolerancia");
+        txtTolerancia.setText("Tolerancia");
 
-        jTextField4.setText("Iteraciones");
+        txtIteraciones.setText("Iteraciones");
 
         jButton1.setText("< Atrás");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -76,21 +86,28 @@ public class VentanaReglaFalsa extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Calcular");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        butCalcular.setText("Calcular");
+        butCalcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                butCalcularActionPerformed(evt);
             }
         });
+
+        panelGrafica.add(canvas1);
+
+        jTabbedPane1.addTab("Grafica", panelGrafica);
+
+        panelTabla.setLayout(new java.awt.BorderLayout());
+        jTabbedPane1.addTab("Tabla", panelTabla);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
@@ -98,16 +115,17 @@ public class VentanaReglaFalsa extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)))
+                            .addComponent(txtXi)
+                            .addComponent(txtXs)
+                            .addComponent(txtTolerancia)
+                            .addComponent(txtIteraciones, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jButton1)
                         .addGap(70, 70, 70)
-                        .addComponent(jButton2)))
-                .addContainerGap(402, Short.MAX_VALUE))
+                        .addComponent(butCalcular)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,42 +133,88 @@ public class VentanaReglaFalsa extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtXi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtXs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTolerancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                    .addComponent(txtIteraciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(butCalcular))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtXiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtXiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtXiActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    
+    String funcion;
+    public void RecibirFuncion(String f){
+        funcion = f;
+    }
+    
+    private void butCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCalcularActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+                  Graficador t = new Graficador();
+            double tolerancia = Double.parseDouble(txtTolerancia.getText());
+            int iteraciones = Integer.parseInt(txtIteraciones.getText());
+            double xi = Double.parseDouble(txtXi.getText());
+            double xs = Double.parseDouble(txtXs.getText());
+        
+            ChartPanel panel = t.series(funcion, xi, xs);
+            panelGrafica.removeAll();
+            panelGrafica.add(panel);
+            panelGrafica.updateUI();
+        
+            Metodos m = new Metodos();
+            JOptionPane.showMessageDialog(null,m.ReglaFalsa(xs, xi, tolerancia, iteraciones, funcion, true),
+                                      "Resultado", JOptionPane.INFORMATION_MESSAGE);
+        
+            GeneradorTablas g = new GeneradorTablas();
+            JTable tabla = g.tablaBiseccion(m.getReglaFalsaXi(), m.getReglaFalsaXs(),
+                                            m.getReglaFalsaXm(), m.getReglaFalsaFxm(),
+                                            m.getReglaFalsaEa(), m.getReglaFalsaEr());
+        
+            
+            panelTabla.removeAll();
+            panelTabla.add(new JScrollPane(tabla));
+            panelTabla.updateUI();
+        
+            VentanaUnaVariable vuv = new VentanaUnaVariable();
+        
+            System.out.println("Mire se encontro: " + funcion);
+            Evaluador eva = new Evaluador();
+            eva.Evaluador2(funcion,2);
+            
+        
+    }//GEN-LAST:event_butCalcularActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         VentanaUnaVariable vuv = new VentanaUnaVariable();
         this.setVisible(false);
         vuv.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtXsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtXsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtXsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,15 +252,19 @@ public class VentanaReglaFalsa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton butCalcular;
+    private java.awt.Canvas canvas1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel panelGrafica;
+    private javax.swing.JPanel panelTabla;
+    private javax.swing.JTextField txtIteraciones;
+    private javax.swing.JTextField txtTolerancia;
+    private javax.swing.JTextField txtXi;
+    private javax.swing.JTextField txtXs;
     // End of variables declaration//GEN-END:variables
 }

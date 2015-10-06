@@ -115,7 +115,6 @@ public class Metodos {
 	BigDecimal xs = new BigDecimal(xs1);
         BigDecimal xi = new BigDecimal(xi1);
         BigDecimal tolerancia = new BigDecimal(tolerancia1);
-        
         if (fxi.equals(BigDecimal.ZERO)) {
                 biseccionXi.add(xi);
                 biseccionXs.add(xs);
@@ -292,14 +291,14 @@ public class Metodos {
 		if(errorAbs){
                     error = (xn.subtract(xa)).abs();
                 }else{
-                    error = ((xn.subtract(xa)).divide(xn)).abs();
+                    error = ((xn.subtract(xa)).divide(xn, RoundingMode.UP)).abs();
                 }
 		xa = xn;
 		contador++;
                 puntoFijoXn.add(xn);
                 puntoFijoFxn.add(fx);
                 puntoFijoEa.add((xn.subtract(xa)).abs());
-                puntoFijoEr.add(((xn.subtract(xa)).divide(xn)).abs());
+                puntoFijoEr.add(((xn.subtract(xa)).divide(xn, RoundingMode.UP)).abs());
 	}
 	if (fx.equals(BigDecimal.ZERO)) {
 		return xa+" es raiz";
