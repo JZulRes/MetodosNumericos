@@ -9,11 +9,17 @@ import org.jfree.chart.ChartPanel;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+
+
+
+
+
 
 /**
  *
@@ -25,14 +31,28 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaBusquedasIn 
+     * @param cadena
+     * @return boolean
      */
+    public boolean esNumero(String cadena){
+	try {
+		Integer.parseInt(cadena);
+		return true;
+	} catch (NumberFormatException nfe){
+		return false;
+	}
+    }    
+ 
+
     public VentanaBusquedasIn() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setTitle("Busquedas Incrementales");
+        
     }
     String funcion;
+    
     public void RecibirFuncion(String f){
         funcion = f;
     }
@@ -46,7 +66,6 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -61,8 +80,6 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
         panelTabla = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Busquedas Incrementales");
 
         jButton1.setText("< Atrás");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -108,24 +125,22 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(14, 14, 14)
-                            .addComponent(jButton1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel4))
-                            .addGap(47, 47, 47)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -133,11 +148,9 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(31, 31, 31)
+                        .addGap(53, 53, 53)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -154,7 +167,7 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
                             .addComponent(jButton1)
                             .addComponent(jButton2)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -175,34 +188,39 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //boton calcular;
-        Graficador t = new Graficador();
-        double delta = Double.parseDouble(jTextField2.getText());
-        double iteraciones = Double.parseDouble(jTextField3.getText());
-        double xi = Double.parseDouble(jTextField1.getText());
-        double xs = xi+(delta*iteraciones);
-        
-        ChartPanel panel = t.series(funcion, xi, xs);
-        panelGrafica.removeAll();
-        panelGrafica.add(panel);
-        panelGrafica.updateUI();
-        
-        Metodos m = new Metodos();
-        m.Busqueda(xi, delta, Integer.parseInt(jTextField3.getText()), funcion);
-        GeneradorTablas g = new GeneradorTablas();
-        JTable tabla = g.tablaBusquedas(m.getBusquedax(), m.getBusquedaFx());
-        
-        panelTabla.removeAll();
-        panelTabla.add(new JScrollPane(tabla));
-        panelTabla.updateUI();
-        
-        VentanaUnaVariable vuv = new VentanaUnaVariable();
-        
-        System.out.println("Mire se encontro: " + funcion);
-        Evaluador eva = new Evaluador();
-        try{
-            eva.Evaluador2(funcion,2);
-        }catch(Exception e){
+        if(jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Verifique que los campos no esten vacios", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             
+        }else{
+            try{
+            Graficador t = new Graficador();
+            double delta = Double.parseDouble(jTextField2.getText());
+            double iteraciones = Double.parseDouble(jTextField3.getText());
+            double xi = Double.parseDouble(jTextField1.getText());
+            double xs = xi+(delta*iteraciones);
+        
+            ChartPanel panel = t.series(funcion, xi, xs);
+            panelGrafica.removeAll();
+            panelGrafica.add(panel);
+            panelGrafica.updateUI();
+        
+            Metodos m = new Metodos();
+            m.Busqueda(xi, delta, Integer.parseInt(jTextField3.getText()), funcion);
+            GeneradorTablas g = new GeneradorTablas();
+            JTable tabla = g.tablaBusquedas(m.getBusquedax(), m.getBusquedaFx());
+        
+            panelTabla.removeAll();
+            panelTabla.add(new JScrollPane(tabla));
+            panelTabla.updateUI();
+        
+            VentanaUnaVariable vuv = new VentanaUnaVariable();
+        
+            System.out.println("Mire se encontro: " + funcion);
+            Evaluador eva = new Evaluador();
+            eva.Evaluador2(funcion,2);
+            }catch(Exception e){
+               JOptionPane.showMessageDialog(null, "Verifique que los campos sean Numeros", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
         
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -246,7 +264,6 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
     private java.awt.Canvas canvas1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -5,9 +5,15 @@
  */
 package metodosnumericos;
 
+import org.jfree.chart.ChartPanel;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+
 /**
  *
  * @author Juan Fernando Zuluaga <jzulua50@eafit.edu.co>
+ * @author Daniel Arango Pelaez <darang24@eafit.edu.co>
+ * 
  */
 public class VentanaRaicesM extends javax.swing.JFrame {
 
