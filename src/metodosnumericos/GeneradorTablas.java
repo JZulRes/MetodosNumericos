@@ -90,6 +90,4 @@ public class GeneradorTablas {
         return tabla;
     }
     
-    
-    
 }
