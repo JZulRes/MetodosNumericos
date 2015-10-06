@@ -235,6 +235,7 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
         //boton ventana metodo de newton
         String f = getEvaluador();
         VentanaMetododeNewton mn = new VentanaMetododeNewton();
+        mn.RecibirFuncion(f);
         this.setVisible(false);
         mn.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -243,6 +244,7 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
         // boton ventana metodo de la secante 
         String f = getEvaluador();
         VentanaMetodoSecante ms = new VentanaMetodoSecante();
+        ms.RecibirFuncion(f);
         this.setVisible(false);
         ms.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -251,6 +253,7 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
         // boton ventana raices multiples 
         String f = getEvaluador();
         VentanaRaicesM rm = new VentanaRaicesM();
+        rm.RecibirFuncion(f);
         this.setVisible(false);
         rm.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed

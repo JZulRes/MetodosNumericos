@@ -159,6 +159,12 @@ public class VentanaMetodoSecante extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    String funcion;
+    public void RecibirFuncion(String f){
+        funcion = f;
+    }
+    
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed

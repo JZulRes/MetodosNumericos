@@ -133,6 +133,12 @@ public class VentanaMetododeNewton extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    String funcion;
+    public void RecibirFuncion(String f){
+        funcion = f;
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         VentanaUnaVariable vuv = new VentanaUnaVariable();
         this.setVisible(false);
