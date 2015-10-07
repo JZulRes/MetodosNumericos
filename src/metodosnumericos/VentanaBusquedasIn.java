@@ -206,7 +206,9 @@ public class VentanaBusquedasIn extends javax.swing.JFrame {
             panelGrafica.updateUI();
         
             Metodos m = new Metodos();
-            m.Busqueda(xi, delta, Integer.parseInt(jTextField3.getText()), funcion);
+            JOptionPane.showMessageDialog(null,m.Busqueda(xi, delta, Integer.parseInt(jTextField3.getText()), funcion),
+                                      "Resultado", JOptionPane.INFORMATION_MESSAGE);
+        
             GeneradorTablas g = new GeneradorTablas();
             JTable tabla = g.tablaBusquedas(m.getBusquedax(), m.getBusquedaFx());
         

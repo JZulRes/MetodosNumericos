@@ -8,19 +8,25 @@ import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 /**
  *
  * @author SKP
  */
 public class GeneradorTablas {
 
+    DecimalFormat format = new DecimalFormat("#.##E0"); 
+        
     public JTable tablaBusquedas(ArrayList<BigDecimal> busquedax, ArrayList<BigDecimal> busquedaFx){
         
         String col[]={"n", "x", "fx"};
         DefaultTableModel modelo = new DefaultTableModel(col,0);
         for(int i = 0; i<busquedax.size();i++){
-            Object[] fila = {i,busquedax.get(i),busquedaFx.get(i)};
+            Object[] fila = {i,format.format(busquedax.get(i)),
+                            format.format(busquedaFx.get(i))};
             modelo.addRow(fila);
+            
             //modelo.addRow(new Object[]{i,busquedax.get(i),busquedaFx.get(i)});
             
         }
@@ -37,7 +43,8 @@ public class GeneradorTablas {
         DefaultTableModel modelo = new DefaultTableModel(col,0);
         for(int i = 0; i<biseccionXi.size();i++){
             Object[] fila = {i,biseccionXi.get(i),biseccionXs.get(i),biseccionXm.get(i),
-                            biseccionFxm.get(i), biseccionEa.get(i), biseccionEr.get(i)};
+                            biseccionFxm.get(i), format.format(biseccionEa.get(i)), 
+                            format.format(biseccionEr.get(i))};
             modelo.addRow(fila);
         }
         JTable tabla = new JTable(modelo); 
@@ -52,7 +59,8 @@ public class GeneradorTablas {
         DefaultTableModel modelo = new DefaultTableModel(col,0);
         for(int i = 0; i<puntoFijoXn.size();i++){
             Object[] fila = {i,puntoFijoXn.get(i),puntoFijoFxn.get(i),
-                               puntoFijoEa.get(i),puntoFijoEr.get(i)};
+                               format.format(puntoFijoEa.get(i)),
+                               format.format(puntoFijoEr.get(i))};
             modelo.addRow(fila);
         }
         JTable tabla = new JTable(modelo); 
@@ -67,8 +75,8 @@ public class GeneradorTablas {
         DefaultTableModel modelo = new DefaultTableModel(col,0);
         for(int i = 0; i<newtonXn.size();i++){
             Object[] fila = {i,newtonXn.get(i),newtonFxn.get(i),
-                               newtonFdx.get(i),newtonEa.get(i),
-                               newtonEr.get(i)};
+                               newtonFdx.get(i),format.format(newtonEa.get(i)),
+                               format.format(newtonEr.get(i))};
             modelo.addRow(fila);
         }
         JTable tabla = new JTable(modelo); 
@@ -83,7 +91,7 @@ public class GeneradorTablas {
         DefaultTableModel modelo = new DefaultTableModel(col,0);
         for(int i = 0; i<rmXn.size();i++){
             Object[] fila = {i,rmXn.get(i),rmFxn.get(i), rmFdx.get(i), rmFddx.get(i),
-                             rmEa.get(i), rmEr.get(i)};
+                             format.format(rmEa.get(i)), format.format(rmEr.get(i))};
             modelo.addRow(fila);
         }
         JTable tabla = new JTable(modelo); 

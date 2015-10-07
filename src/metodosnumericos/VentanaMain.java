@@ -35,6 +35,7 @@ public class VentanaMain extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        butGraficar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,6 +49,13 @@ public class VentanaMain extends javax.swing.JFrame {
         jLabel1.setText("Bienvenido");
 
         jLabel2.setText("Que metodo Desea Hacer");
+
+        butGraficar.setText("Graficador");
+        butGraficar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butGraficarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,7 +72,10 @@ public class VentanaMain extends javax.swing.JFrame {
                         .addGap(128, 128, 128))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(58, 58, 58))))
+                        .addGap(58, 58, 58))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(butGraficar)
+                        .addGap(150, 150, 150))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,7 +86,9 @@ public class VentanaMain extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(79, 79, 79))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(butGraficar)
+                .addGap(47, 47, 47))
         );
 
         pack();
@@ -86,6 +99,14 @@ public class VentanaMain extends javax.swing.JFrame {
         this.setVisible(false);
         ventanaunavariable.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void butGraficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butGraficarActionPerformed
+        // TODO add your handling code here:
+        VentanaGraficar pf = new VentanaGraficar();
+        this.setVisible(false);
+        pf.setVisible(true);
+
+    }//GEN-LAST:event_butGraficarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,6 +144,7 @@ public class VentanaMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton butGraficar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

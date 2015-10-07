@@ -8,12 +8,17 @@ import java.util.ArrayList;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 /**
  * @author Juan Fernando Zuluaga <jzulua50@eafit.edu.co>
  * @author Daniel Arango Pelaez <darang24@eafit.edu.co>
  */
 public class Metodos {
 
+    
+    DecimalFormat formatTol = new DecimalFormat("#.##E0"); 
+    DecimalFormat formatX = new DecimalFormat("#.#######E0"); 
+      
     //Arraylist de todos los metodos:
     //ArrayList resultados busquedas incrementales
     private ArrayList<BigDecimal> busquedaFx = new ArrayList<BigDecimal>();  
@@ -97,10 +102,10 @@ public class Metodos {
                 busquedax.add(x1);
                 busquedaFx.add(fx1);
 		if (fx1.equals(BigDecimal.ZERO)) {
-			return x1+" es raiz";
+			return formatX.format(x1)+" es raiz";
 		}
 		else if(fxo.multiply(fx1).compareTo(BigDecimal.ZERO)<0){
-			return "Hay una raiz entre "+x0b+" y "+x1;
+			return "Hay una raiz entre "+formatX.format(x0b)+" y "+formatX.format(x1);
 		}
 		else {
 			return "Fracaso en "+iter+" iteraciones";
@@ -175,10 +180,10 @@ public class Metodos {
                       //  biseccionEr.add(BigDecimal.ZERO);
                 }
 		if (fxm.equals(BigDecimal.ZERO)) {
-			return xm+" es raiz";
+			return formatX.format(xm)+" es raiz";
 		}
 		else if ( error.compareTo(tolerancia) < 0) {
-			return xm+" es una aproximacion a una raiz con una tolerancia = "+tolerancia;
+			return formatX.format(xm)+" es una aproximacion a una raiz con una tolerancia = "+formatTol.format(tolerancia);
 		}
 		else {
 			return "Fracaso en "+iter+" iteraciones";
@@ -257,10 +262,10 @@ public class Metodos {
                         contador++;
 		}
 		if (fxm.equals(BigDecimal.ZERO)) {
-			return xm+" es raiz";
+			return formatX.format(xm)+" es raiz";
 		}
 		else if (error.compareTo(tolerancia) < 0) {
-			return xm+" es una aproximacion a una raiz con una tolerancia = "+tolerancia;
+			return formatX.format(xm)+" es una aproximacion a una raiz con una tolerancia = "+formatTol.format(tolerancia);
 		}
 		else {
 			return "Fracaso en iter iteraciones";
@@ -353,13 +358,13 @@ public class Metodos {
 		contador++;
         }
 	if (fx.equals(BigDecimal.ZERO)) {
-		return x0+" es raiz";
+		return formatX.format(x0)+" es raiz";
 	}
 	else if (error.compareTo(tolerancia)<0) {
-		return x1+" es una aproximacion a una raiz con una tolerancia = "+tolerancia;
+		return formatX.format(x1)+" es una aproximacion a una raiz con una tolerancia = "+formatTol.format(tolerancia);
 	}
 	else if (dfx.equals(BigDecimal.ZERO)) {
-		return x1+" es una posible raiz multiple";
+		return formatX.format(x1)+" es una posible raiz multiple";
 	}
 	else {
 		return "Fracaso en "+iter+" iteraciones";
@@ -416,10 +421,10 @@ public class Metodos {
                         
 		}
 		if (fx1.equals(BigDecimal.ZERO)) {
-			return x1+" es raiz";
+			return formatX.format(x1)+" es raiz";
 		} 
 		else if (error.compareTo(tolerancia)<0) {
-			return x1+" es aproximacion a una raiz con una tolerancia = "+tolerancia;
+			return formatX.format(x1)+" es aproximacion a una raiz con una tolerancia = "+formatTol.format(tolerancia);
 		}
 		else if (den.equals(BigDecimal.ZERO)) {
 			return "Hay una posible raiz multiple";
@@ -477,10 +482,10 @@ public class Metodos {
                 //den = Math.pow(dfx, 2)-(fx*ddfx);
         }
 	if (fx.equals(BigDecimal.ZERO)) {
-		return x0+" es raiz";
+		return formatX.format(x0)+" es raiz";
 	}
 	else if (error.compareTo(tolerancia)<0) {
-		return x1+" es una aproximacion a una raiz con una tolerancia = "+tolerancia;
+		return formatX.format(x1)+" es una aproximacion a una raiz con una tolerancia = "+formatTol.format(tolerancia);
 	}
 	else if (den.equals(BigDecimal.ZERO)) {
 		return "Posible raiz multiple";
