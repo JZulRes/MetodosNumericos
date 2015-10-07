@@ -376,6 +376,9 @@ public class Metodos {
         BigDecimal fx0 = new BigDecimal(funcion(f,x0.doubleValue()));
         secanteXn.add(x0);
         secanteFxn.add(fx0);
+        secanteEa.add(BigDecimal.ZERO);
+        secanteEr.add(BigDecimal.ZERO);
+                
         if (fx0.equals(BigDecimal.ZERO)) {
 		return x0+" es raiz";
 	}
@@ -447,10 +450,11 @@ public class Metodos {
         
         //double den = Math.pow(dfx, 2)-(fx*ddfx);
 	BigDecimal den = (dfx.pow(2)).subtract((fx.multiply(ddfx)));
-        
+               
         while ((error.compareTo(tolerancia) > 0) && (!fx.equals(BigDecimal.ZERO))
                 && (!den.equals(BigDecimal.ZERO)) && (contador < iter)) {
-		x1 = x0.subtract((fx.multiply(dfx)).divide(den,MathContext.DECIMAL128));
+		
+                x1 = x0.subtract((fx.multiply(dfx)).divide(den,MathContext.DECIMAL128));
                 //x1 = x0 - ((fx*dfx)/den);
 		fx = new BigDecimal(funcion(f,x1.doubleValue()));
 		dfx = new BigDecimal(funcion(df,x1.doubleValue()));
@@ -460,16 +464,17 @@ public class Metodos {
                 }else{
                     error = ((x1.subtract(x0)).divide(x1,MathContext.DECIMAL128)).abs();
                 }
-		x0 = x1;
-		contador++;
-                den = (dfx.pow(2)).subtract((fx.multiply(ddfx)));
-                //den = Math.pow(dfx, 2)-(fx*ddfx);
                 raicesXn.add(x0);
                 raicesFx.add(fx);
                 raicesFdx.add(dfx);
                 raicesFddx.add(ddfx);
                 raicesEa.add((x1.subtract(x0)).abs());
                 raicesEr.add(((x1.subtract(x0)).divide(x1,MathContext.DECIMAL128)).abs());
+               
+                x0 = x1;
+		contador++;
+                den = (dfx.pow(2)).subtract((fx.multiply(ddfx)));
+                //den = Math.pow(dfx, 2)-(fx*ddfx);
         }
 	if (fx.equals(BigDecimal.ZERO)) {
 		return x0+" es raiz";

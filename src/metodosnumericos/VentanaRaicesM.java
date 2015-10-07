@@ -5,6 +5,7 @@
  */
 package metodosnumericos;
 
+import javax.swing.JOptionPane;
 import org.jfree.chart.ChartPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -49,6 +50,10 @@ public class VentanaRaicesM extends javax.swing.JFrame {
         panelGrafica = new javax.swing.JPanel();
         canvas1 = new java.awt.Canvas();
         panelTabla = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtFdx = new javax.swing.JTextField();
+        txtFddx = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,6 +92,10 @@ public class VentanaRaicesM extends javax.swing.JFrame {
         panelTabla.setLayout(new java.awt.BorderLayout());
         jTabbedPane1.addTab("Tabla", panelTabla);
 
+        jLabel5.setText("f'(x):");
+
+        jLabel6.setText("f''(x):");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,12 +107,16 @@ public class VentanaRaicesM extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtX0)
                             .addComponent(txtTolerancia)
-                            .addComponent(txtIteraciones)))
+                            .addComponent(txtIteraciones)
+                            .addComponent(txtFdx)
+                            .addComponent(txtFddx)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1)
@@ -138,6 +151,14 @@ public class VentanaRaicesM extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(txtIteraciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtFdx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txtFddx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
@@ -162,6 +183,39 @@ public class VentanaRaicesM extends javax.swing.JFrame {
 
     private void butCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCalcularActionPerformed
         // TODO add your handling code here:
+            Graficador t = new Graficador();
+            double tolerancia = Double.parseDouble(txtTolerancia.getText());
+            int iteraciones = Integer.parseInt(txtIteraciones.getText());
+            double xi = Double.parseDouble(txtX0.getText());
+            String fdx = txtFdx.getText();
+            String fddx = txtFddx.getText();
+            
+            Metodos m = new Metodos();
+            JOptionPane.showMessageDialog(null,m.RaicesMultiples(tolerancia, xi, iteraciones, funcion, fdx, fddx, true),
+                                      "Resultado", JOptionPane.INFORMATION_MESSAGE);
+            
+            GeneradorTablas g = new GeneradorTablas();
+            
+            JTable tabla = g.tablaRaicesM(m.getRaicesXn(), m.getRaicesFx(),
+                                         m.getRaicesFdx(), m.getRaicesFddx(),
+                                         m.getRaicesEa(), m.getRaicesEr());
+            double xs;
+            //Si Xi < Xv
+            if(xi<m.getRaicesXn().get(m.getRaicesXn().size()-1).doubleValue()){
+                xs = m.getRaicesXn().get(m.getRaicesXn().size()-1).doubleValue()+5;
+            }else{
+                xs = xi;
+                xi = m.getRaicesXn().get(m.getRaicesXn().size()-1).doubleValue()-5;
+            }
+            
+            panelGrafica.removeAll();
+            panelGrafica.add(t.series(funcion, xi, xs));
+            panelGrafica.updateUI();
+         
+            panelTabla.removeAll();
+            panelTabla.add(new JScrollPane(tabla));
+            panelTabla.updateUI();
+
     }//GEN-LAST:event_butCalcularActionPerformed
 
     /**
@@ -207,9 +261,13 @@ public class VentanaRaicesM extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel panelGrafica;
     private javax.swing.JPanel panelTabla;
+    private javax.swing.JTextField txtFddx;
+    private javax.swing.JTextField txtFdx;
     private javax.swing.JTextField txtIteraciones;
     private javax.swing.JTextField txtTolerancia;
     private javax.swing.JTextField txtX0;

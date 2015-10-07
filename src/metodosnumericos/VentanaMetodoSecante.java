@@ -5,9 +5,14 @@
  */
 package metodosnumericos;
 
+import javax.swing.JOptionPane;
 import org.jfree.chart.ChartPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 /**
  *
@@ -45,14 +50,12 @@ public class VentanaMetodoSecante extends javax.swing.JFrame {
         txtTolerancia = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         butCalcular = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        txtFdx = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        txtFddx = new javax.swing.JTextField();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelGrafica = new javax.swing.JPanel();
         canvas1 = new java.awt.Canvas();
         panelTabla = new javax.swing.JPanel();
+        txtIteraciones = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,20 +92,14 @@ public class VentanaMetodoSecante extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("f'(x)=");
-
-        txtFdx.setText("f'(x)");
-
-        jLabel6.setText("f''(x)=");
-
-        txtFddx.setText("f''(x)");
-
         panelGrafica.add(canvas1);
 
         jTabbedPane1.addTab("Grafica", panelGrafica);
 
         panelTabla.setLayout(new java.awt.BorderLayout());
         jTabbedPane1.addTab("Tabla", panelTabla);
+
+        jLabel7.setText("Iteraciones:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,24 +112,22 @@ public class VentanaMetodoSecante extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(jButton1)
+                        .addGap(67, 67, 67)
+                        .addComponent(butCalcular))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtTolerancia)
                             .addComponent(txtX0)
                             .addComponent(txtX1)
-                            .addComponent(txtFdx)
-                            .addComponent(txtFddx)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1)
-                        .addGap(67, 67, 67)
-                        .addComponent(butCalcular)))
+                            .addComponent(txtIteraciones))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -161,12 +156,8 @@ public class VentanaMetodoSecante extends javax.swing.JFrame {
                             .addComponent(txtTolerancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtFdx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(txtFddx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtIteraciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
@@ -195,6 +186,40 @@ public class VentanaMetodoSecante extends javax.swing.JFrame {
 
     private void butCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCalcularActionPerformed
         // TODO add your handling code here:
+                    
+            Graficador t = new Graficador();
+            double tolerancia = Double.parseDouble(txtTolerancia.getText());
+            int iteraciones = Integer.parseInt(txtIteraciones.getText());
+            double x0 = Double.parseDouble(txtX0.getText());
+            double x1 = Double.parseDouble(txtX1.getText());
+           
+            
+            Metodos m = new Metodos();
+            JOptionPane.showMessageDialog(null,m.MetodoDeLaSecante(tolerancia, x0, x1, iteraciones, funcion, true),
+                                      "Resultado", JOptionPane.INFORMATION_MESSAGE);
+        
+            GeneradorTablas g = new GeneradorTablas();
+            JTable tabla = g.tablaPuntoFijo(m.getSecanteXn(), m.getSecanteFxn(),
+                                            m.getSecanteEa(), m.getSecanteEr());
+            
+            
+           double xs;
+            //Si Xi < Xv
+            if(x0<m.getSecanteXn().get(m.getSecanteXn().size()-1).doubleValue()){
+                xs = m.getSecanteXn().get(m.getSecanteXn().size()-1).doubleValue()+5;
+            }else{
+                xs = x0;
+                x0 = m.getSecanteXn().get(m.getSecanteXn().size()-1).doubleValue()-5;
+            }
+            
+            panelGrafica.removeAll();
+            panelGrafica.add(t.series(funcion, x0, xs));
+            panelGrafica.updateUI();
+        
+            panelTabla.removeAll();
+            panelTabla.add(new JScrollPane(tabla));
+            panelTabla.updateUI();
+
     }//GEN-LAST:event_butCalcularActionPerformed
 
     /**
@@ -240,13 +265,11 @@ public class VentanaMetodoSecante extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel panelGrafica;
     private javax.swing.JPanel panelTabla;
-    private javax.swing.JTextField txtFddx;
-    private javax.swing.JTextField txtFdx;
+    private javax.swing.JTextField txtIteraciones;
     private javax.swing.JTextField txtTolerancia;
     private javax.swing.JTextField txtX0;
     private javax.swing.JTextField txtX1;
