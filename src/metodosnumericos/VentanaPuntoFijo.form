@@ -37,7 +37,7 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtIteraciones" max="32767" attributes="0"/>
                           <Component id="txtTolerancia" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtXa" alignment="0" pref="83" max="32767" attributes="0"/>
+                          <Component id="txtXa" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtGx" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
