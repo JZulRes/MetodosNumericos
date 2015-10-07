@@ -96,6 +96,10 @@ public class VentanaRaicesM extends javax.swing.JFrame {
 
         jLabel6.setText("f''(x):");
 
+        txtFdx.setText("f'(x)");
+
+        txtFddx.setText("f''(x)");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,7 +186,10 @@ public class VentanaRaicesM extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void butCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCalcularActionPerformed
-        // TODO add your handling code here:
+        if(txtFddx.getText().isEmpty() || txtFdx.getText().isEmpty() || txtIteraciones.getText().isEmpty() || txtTolerancia.getText().isEmpty() || txtX0.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Verifique que los campos no esten vacios", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            try{
             Graficador t = new Graficador();
             double tolerancia = Double.parseDouble(txtTolerancia.getText());
             int iteraciones = Integer.parseInt(txtIteraciones.getText());
@@ -215,6 +222,10 @@ public class VentanaRaicesM extends javax.swing.JFrame {
             panelTabla.removeAll();
             panelTabla.add(new JScrollPane(tabla));
             panelTabla.updateUI();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Verifique que los campos sean Numeros", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
 
     }//GEN-LAST:event_butCalcularActionPerformed
 

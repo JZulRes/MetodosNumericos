@@ -90,6 +90,7 @@ public class VentanaPuntoFijo extends javax.swing.JFrame {
 
         jLabel1.setText("g(x):");
 
+        txtGx.setText("g(x)");
         txtGx.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtGxActionPerformed(evt);
@@ -120,7 +121,7 @@ public class VentanaPuntoFijo extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtIteraciones)
                             .addComponent(txtTolerancia)
-                            .addComponent(txtXa, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                            .addComponent(txtXa)
                             .addComponent(txtGx)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)

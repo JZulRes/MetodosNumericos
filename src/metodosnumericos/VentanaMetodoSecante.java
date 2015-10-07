@@ -99,6 +99,8 @@ public class VentanaMetodoSecante extends javax.swing.JFrame {
         panelTabla.setLayout(new java.awt.BorderLayout());
         jTabbedPane1.addTab("Tabla", panelTabla);
 
+        txtIteraciones.setText("Iteraciones");
+
         jLabel7.setText("Iteraciones:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -185,8 +187,10 @@ public class VentanaMetodoSecante extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void butCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCalcularActionPerformed
-        // TODO add your handling code here:
-                    
+        if(txtIteraciones.getText().isEmpty() || txtTolerancia.getText().isEmpty() || txtX0.getText().isEmpty() || txtX1.getText().isEmpty()){
+              JOptionPane.showMessageDialog(null, "Verifique que los campos no esten vacios", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+               try{     
             Graficador t = new Graficador();
             double tolerancia = Double.parseDouble(txtTolerancia.getText());
             int iteraciones = Integer.parseInt(txtIteraciones.getText());
@@ -219,6 +223,10 @@ public class VentanaMetodoSecante extends javax.swing.JFrame {
             panelTabla.removeAll();
             panelTabla.add(new JScrollPane(tabla));
             panelTabla.updateUI();
+               }catch(Exception e){
+                   JOptionPane.showMessageDialog(null, "Verifique que los campos sean Numeros", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+               }
+        }
 
     }//GEN-LAST:event_butCalcularActionPerformed
 

@@ -5,6 +5,8 @@
  */
 package metodosnumericos;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Juan Fernando Zuluaga <jzulua50@eafit.edu.co>
@@ -184,13 +186,18 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //boton VentanaBusquedasIncrementales
+        if(jTextField1.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Verifique que el campo de la funcion no este vacia", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+        }else{
        String f = getEvaluador();
        VentanaBusquedasIn vbi = new VentanaBusquedasIn();
        vbi.RecibirFuncion(f);
        this.setVisible(false);
        vbi.setVisible(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
   
@@ -206,56 +213,86 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //boton VentanaBiseccion
+         if(jTextField1.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Verifique que el campo de la funcion no este vacia", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            
+        }else{
         String f = getEvaluador();
         VentanaBiseccion vb = new VentanaBiseccion();
         vb.RecibirFuncion(f);
         this.setVisible(false);
         vb.setVisible(true);
+         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // boton ventana regla falsa
+         if(jTextField1.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Verifique que el campo de la funcion no este vacia", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            
+        }else{
         String f = getEvaluador();
         VentanaReglaFalsa rf = new VentanaReglaFalsa();
         rf.RecibirFuncion(f);
         this.setVisible(false);
         rf.setVisible(true);
+         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // boton Ventana Punto Fijo
+         if(jTextField1.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Verifique que el campo de la funcion no este vacia", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            
+        }else{
         String f = getEvaluador();
         VentanaPuntoFijo pf = new VentanaPuntoFijo();
         pf.RecibirFuncion(f);
         this.setVisible(false);
         pf.setVisible(true);
+         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //boton ventana metodo de newton
+         if(jTextField1.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Verifique que el campo de la funcion no este vacia", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            
+        }else{
         String f = getEvaluador();
         VentanaMetododeNewton mn = new VentanaMetododeNewton();
         mn.RecibirFuncion(f);
         this.setVisible(false);
         mn.setVisible(true);
+         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // boton ventana metodo de la secante 
+        // boton ventana metodo de la secante
+         if(jTextField1.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Verifique que el campo de la funcion no este vacia", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            
+        }else{
         String f = getEvaluador();
         VentanaMetodoSecante ms = new VentanaMetodoSecante();
         ms.RecibirFuncion(f);
         this.setVisible(false);
         ms.setVisible(true);
+         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // boton ventana raices multiples 
+         if(jTextField1.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Verifique que el campo de la funcion no este vacia", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            
+        }else{
         String f = getEvaluador();
         VentanaRaicesM rm = new VentanaRaicesM();
         rm.RecibirFuncion(f);
         this.setVisible(false);
         rm.setVisible(true);
+         }
     }//GEN-LAST:event_jButton7ActionPerformed
      
 public String getEvaluador(){
