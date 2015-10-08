@@ -312,7 +312,11 @@ public class VentanaUnaVariable extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-          JOptionPane.showMessageDialog(this, "El evaluador solo recibe funciones");        
+          JOptionPane.showMessageDialog(this, "Algunas operaciones soportadas por el evaluador: \n"
+                  + "Suma: x+x | Resta: x-x | Multiplicacion: x*x | Division: x/x\n"
+                  + "Potenciacion: x^x | Modulo: x%x | Ln: log | Log base 2: log2 | Log base 10: log10 \n"
+                  + "Valor Absouluto: abs | Trigonometricas: acos, asin, atan, cos, cosh, sin, sinh, tan, tanh \n"
+                  + "e^x | raiz cuadrada: sqrt | raiz cubica: sbrt");        
     }//GEN-LAST:event_jButton9ActionPerformed
      
 public String getEvaluador(){
