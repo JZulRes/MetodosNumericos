@@ -31,6 +31,7 @@ public class GeneradorTablas {
             
         }
         JTable tabla = new JTable(modelo); 
+        tabla.getColumnModel().getColumn(0).setMaxWidth(27);
         return tabla;
     }
     
@@ -48,6 +49,7 @@ public class GeneradorTablas {
             modelo.addRow(fila);
         }
         JTable tabla = new JTable(modelo); 
+        tabla.getColumnModel().getColumn(0).setMaxWidth(27);
         return tabla;
     }
     
@@ -64,6 +66,7 @@ public class GeneradorTablas {
             modelo.addRow(fila);
         }
         JTable tabla = new JTable(modelo); 
+        tabla.getColumnModel().getColumn(0).setMaxWidth(27);
         return tabla;
     }
     
@@ -80,6 +83,7 @@ public class GeneradorTablas {
             modelo.addRow(fila);
         }
         JTable tabla = new JTable(modelo); 
+        tabla.getColumnModel().getColumn(0).setMaxWidth(27);
         return tabla;
     }
     
@@ -95,6 +99,7 @@ public class GeneradorTablas {
             modelo.addRow(fila);
         }
         JTable tabla = new JTable(modelo); 
+        tabla.getColumnModel().getColumn(0).setMaxWidth(27);
         return tabla;
     }
     
